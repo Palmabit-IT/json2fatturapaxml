@@ -29,5 +29,8 @@
   "dependencies": {
     "joi": "^14.0.6",
     "xml-js": "^1.6.8"
+  },
+  "standard": {
+    "envs": ["jest"]
   }
 }
