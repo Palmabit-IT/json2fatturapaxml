@@ -29,6 +29,23 @@ describe('Schema', () => {
         } = result || {}
         expect(details.some(e => e.message === '"DatiTrasmissione" is required')).toBeTruthy()
       })
+
+      describe('IdTrasmittente', () => {
+        test('should require IdTrasmittente', () => {
+          const value = {
+            FatturaElettronicaHeader: {
+              DatiTrasmissione: {}
+            }
+          }
+          const result = Joi.validate(value, schema)
+          const {
+            error: {
+              details = []
+            } = {}
+          } = result || {}
+          expect(details.some(e => e.message === '"IdTrasmittente" is required')).toBeTruthy()
+        })
+      })
     })
   })
 })

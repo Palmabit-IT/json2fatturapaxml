@@ -2,8 +2,12 @@
 
 const Joi = require('joi')
 
-module.exports = Joi.object().keys({
-  FatturaElettronicaHeader: Joi.object().keys({
-    DatiTrasmissione: Joi.object().keys().required()
+const FatturaElettronicaHeaderSchema = Joi.object().keys({
+  DatiTrasmissione: Joi.object().keys({
+    IdTrasmittente: Joi.object().keys().required()
   }).required()
+}).required()
+
+module.exports = Joi.object().keys({
+  FatturaElettronicaHeader: FatturaElettronicaHeaderSchema
 })
