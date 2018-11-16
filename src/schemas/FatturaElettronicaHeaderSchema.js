@@ -15,7 +15,6 @@ const IdFiscaleIVASchema = Joi.object().keys({
 const CodiceFiscaleSchema = Joi.string().alphanum().min(11).max(16)
 const IndirizzoSchema = Joi.string().alphanum().min(1).max(60)
 const NumeroCivicoSchema = Joi.string().alphanum().min(1).max(8)
-const DenominazioneSchema = Joi.string().alphanum().min(1).max(80)
 
 const DatiTrasmissioneSchema = Joi.object().keys({
   IdTrasmittente: Joi.object().keys({
@@ -155,6 +154,4 @@ const FatturaElettronicaHeaderSchema = Joi.object().keys({
   SoggettoEmittente: SoggettoEmittenteSchema // 1.6
 }).required()
 
-module.exports = Joi.object().keys({
-  FatturaElettronicaHeader: FatturaElettronicaHeaderSchema
-})
+module.exports = FatturaElettronicaHeaderSchema
