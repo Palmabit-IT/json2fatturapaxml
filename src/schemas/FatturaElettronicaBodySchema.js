@@ -91,7 +91,11 @@ const DatiOrdineAcquistoSchema = Joi.alternatives().try(
 
 const DatiGeneraliSchema = Joi.object().keys({
   DatiGeneraliDocumento: DatiGeneraliDocumentoSchema.required(), // 2.1.1
-  DatiOrdineAcquisto: DatiOrdineAcquistoSchema // 2.1.2
+  DatiOrdineAcquisto: DatiOrdineAcquistoSchema, // 2.1.2
+  DatiContratto: DatiOrdineAcquistoSchema, // 2.1.3
+  DatiConvenzione: DatiOrdineAcquistoSchema, // 2.1.4
+  DatiRicezione: DatiOrdineAcquistoSchema, // 2.1.5
+  DatiFattureCollegate: DatiOrdineAcquistoSchema // 2.1.6
 }).required()
 
 const FatturaElettronicaBodyItemSchema = Joi.object().keys({
