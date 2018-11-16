@@ -57,10 +57,19 @@ const StabileOrganizzazioneCedentePrestatoreSchema = Joi.object().keys({
   Nazione: Joi.string().uppercase().length(2).required()
 })
 
+const IscrizioneREASchema = Joi.object().keys({
+  Ufficio: Joi.string().uppercase().length(2).required(),
+  NumeroREA: Joi.string().alphanum().min(1).max(20).required(),
+  CapitaleSociale: Joi.number().precision(2).positive(),
+  SocioUnico: Joi.valid('SU', 'SM'),
+  StatoLiquidazione: Joi.valid('LS', 'LN').required()
+})
+
 const CedentePrestatoreSchema = Joi.object().keys({
   DatiAnagrafici: DatiAnagraficiCedentePrestatoreSchema,
   Sede: SedeCedentePrestatoreSchema,
-  StabileOrganizzazione: StabileOrganizzazioneCedentePrestatoreSchema
+  StabileOrganizzazione: StabileOrganizzazioneCedentePrestatoreSchema,
+  IscrizioneREA: IscrizioneREASchema
 }).required()
 const FatturaElettronicaHeaderSchema = Joi.object().keys({
   DatiTrasmissione: DatiTrasmissioneSchema,
