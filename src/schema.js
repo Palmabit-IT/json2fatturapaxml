@@ -8,6 +8,11 @@ const IdPaeseSchema = Joi.string().uppercase().length(2)
 const IdCodiceSchema = Joi.string().alphanum().min(2).max(28)
 const EmailSchema = Joi.string().email().min(2).max(256)
 const RiferimentoAmministrazioneSchema = Joi.string().alphanum().min(1).max(20)
+const IdFiscaleIVASchema = Joi.object().keys({
+  IdPaese: IdPaeseSchema.required(),
+  IdCodice: IdCodiceSchema.required()
+})
+const CodiceFiscaleSchema = Joi.string().alphanum().min(11).max(16)
 
 const DatiTrasmissioneSchema = Joi.object().keys({
   IdTrasmittente: Joi.object().keys({
@@ -29,10 +34,7 @@ const DatiTrasmissioneSchema = Joi.object().keys({
 }).required()
 
 const DatiAnagraficiCedentePrestatoreSchema = Joi.object().keys({
-  IdFiscaleIVA: Joi.object().keys({
-    IdPaese: IdPaeseSchema.required(),
-    IdCodice: IdCodiceSchema.required()
-  }).required(),
+  IdFiscaleIVA: IdFiscaleIVASchema.required(),
   Anagrafica: Joi.object().keys({
     Denominazione: Joi.string().alphanum().min(1).max(80),
     Nome: Joi.string().alphanum().min(1).max(60),
@@ -81,9 +83,25 @@ const CedentePrestatoreSchema = Joi.object().keys({
   Contatti: ContattiCedentePrestatoreSchema,
   RiferimentoAmministrazione: RiferimentoAmministrazioneSchema
 }).required()
+
+const RappresentanteFiscaleSchema = Joi.object().keys({
+  DatiAnagrafici: Joi.object().keys({
+    IdFiscaleIVA: IdFiscaleIVASchema.required(),
+    CodiceFiscale: CodiceFiscaleSchema,
+    Anagrafica: Joi.object().keys({
+      Denominazione: Joi.string().alphanum().min(1).max(80),
+      Nome: Joi.string().alphanum().min(1).max(60),
+      Cognome: Joi.string().alphanum().min(1).max(60),
+      Titolo: Joi.string().min(2).max(10),
+      CodEORI: Joi.string().min(13).max(17)
+    }).required()
+  }).required()
+})
+
 const FatturaElettronicaHeaderSchema = Joi.object().keys({
-  DatiTrasmissione: DatiTrasmissioneSchema,
-  CedentePrestatore: CedentePrestatoreSchema
+  DatiTrasmissione: DatiTrasmissioneSchema, // 1.1
+  CedentePrestatore: CedentePrestatoreSchema, // 1.2
+  RappresentanteFiscale: RappresentanteFiscaleSchema // 1.3
 }).required()
 
 module.exports = Joi.object().keys({
