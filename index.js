@@ -12,7 +12,7 @@ const options = {
 
 module.exports = (invoice = {}) => {
   const result = validate(invoice)
-  if (result.error) return result
+  if (result.error) return result.error
   const json = {
     _declaration,
     'p:FatturaElettronica': {
