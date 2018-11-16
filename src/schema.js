@@ -48,9 +48,19 @@ const SedeCedentePrestatoreSchema = Joi.object().keys({
   Nazione: Joi.string().uppercase().length(2).required()
 }).required()
 
+const StabileOrganizzazioneCedentePrestatoreSchema = Joi.object().keys({
+  Indirizzo: Joi.string().alphanum().min(1).max(60).required(),
+  NumeroCivico: Joi.string().alphanum().min(1).max(8),
+  CAP: Joi.string().regex(/^\d{5}$/).required(),
+  Comune: Joi.string().min(1).max(60).required(),
+  Provincia: Joi.string().uppercase().length(2),
+  Nazione: Joi.string().uppercase().length(2).required()
+})
+
 const CedentePrestatoreSchema = Joi.object().keys({
   DatiAnagrafici: DatiAnagraficiCedentePrestatoreSchema,
-  Sede: SedeCedentePrestatoreSchema
+  Sede: SedeCedentePrestatoreSchema,
+  StabileOrganizzazione: StabileOrganizzazioneCedentePrestatoreSchema
 }).required()
 const FatturaElettronicaHeaderSchema = Joi.object().keys({
   DatiTrasmissione: DatiTrasmissioneSchema,
