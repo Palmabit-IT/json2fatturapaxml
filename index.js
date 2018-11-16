@@ -15,7 +15,10 @@ module.exports = (invoice = {}) => {
   if (result.error) return result
   const json = {
     _declaration,
-    'p:FatturaElettronica': FatturaElettronicaAttributes(invoice)
+    'p:FatturaElettronica': {
+      '_attributes': FatturaElettronicaAttributes(invoice),
+      ...invoice
+    }
   }
 
   return convert.json2xml(json, options)
