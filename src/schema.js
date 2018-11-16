@@ -144,12 +144,15 @@ const TerzoIntermediarioOSoggettoEmittenteSchema = Joi.object().keys({
   }).required()
 })
 
+const SoggettoEmittenteSchema = Joi.valid('CC', 'TZ')
+
 const FatturaElettronicaHeaderSchema = Joi.object().keys({
   DatiTrasmissione: DatiTrasmissioneSchema, // 1.1
   CedentePrestatore: CedentePrestatoreSchema, // 1.2
   RappresentanteFiscale: RappresentanteFiscaleSchema, // 1.3
   CessionarioCommittente: CessionarioCommittenteSchema, // 1.4
-  TerzoIntermediarioOSoggettoEmittente: TerzoIntermediarioOSoggettoEmittenteSchema // 1.5
+  TerzoIntermediarioOSoggettoEmittente: TerzoIntermediarioOSoggettoEmittenteSchema, // 1.5
+  SoggettoEmittente: SoggettoEmittenteSchema // 1.6
 }).required()
 
 module.exports = Joi.object().keys({
