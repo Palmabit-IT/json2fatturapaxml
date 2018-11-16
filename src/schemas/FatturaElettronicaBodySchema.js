@@ -56,21 +56,42 @@ const CausaleSchema = Joi.alternatives().try(
 
 const Art73Schema = Joi.valid('SI')
 
+const DatiGeneraliDocumentoSchema = Joi.object().keys({
+  TipoDocumento: Joi.valid(TipiDocumentiValidi).required(), // 2.1.1.1
+  Divisa: Joi.string().length(3).required(), // 2.1.1.2
+  Data: Joi.string().isoDate().raw().required(), // 2.1.1.3
+  Numero: Joi.string().max(20).required(), // 2.1.1.4
+  DatiRitenuta: DatiRitenutaSchema, // 2.1.1.5
+  DatiBollo: DatiBolloSchema, // 2.1.1.6
+  DatiCassaPrevidenziale: DatiCassaPrevidenzialeSchema, // 2.1.1.7
+  ScontoMaggiorazione: ScontoMaggiorazioneSchema, // 2.1.1.8
+  ImportoTotaleDocumento: ImportoTotaleDocumentoSchema, // 2.1.1.9
+  Arrotondamento: ArrotondamentoSchema, // 2.1.1.10
+  Causale: CausaleSchema, // 2.1.1.11
+  Art73: Art73Schema // 2.1.1.12
+})
+
+const RiferimentoNumeroLineaSchema = Joi.alternatives().try(
+  Joi.array().items(Joi.number()),
+  Joi.number())
+
+const DatiOrdineAcquistoItemSchema = Joi.object().keys({
+  RiferimentoNumeroLinea: RiferimentoNumeroLineaSchema, // 2.1.2.1
+  IdDocumento: Joi.string().min(1).max(20).required(), // 2.1.2.2
+  Data: Joi.string().isoDate().raw(), // 2.1.2.3
+  NumItem: Joi.string().min(1).max(20), // 2.1.2.4
+  CodiceCommessaConvenzione: Joi.string().min(1).max(100), // 2.1.2.5
+  CodiceCUP: Joi.string().min(1).max(15), // 2.1.2.6
+  CodiceCIG: Joi.string().min(1).max(15) // 2.1.2.7
+}).required()
+
+const DatiOrdineAcquistoSchema = Joi.alternatives().try(
+  Joi.array().items(DatiOrdineAcquistoItemSchema),
+  DatiOrdineAcquistoItemSchema)
+
 const DatiGeneraliSchema = Joi.object().keys({
-  DatiGeneraliDocumento: Joi.object().keys({
-    TipoDocumento: Joi.valid(TipiDocumentiValidi).required(), // 2.1.1.1
-    Divisa: Joi.string().length(3).required(), // 2.1.1.2
-    Data: Joi.string().isoDate().raw().required(), // 2.1.1.3
-    Numero: Joi.string().max(20).required(), // 2.1.1.4
-    DatiRitenuta: DatiRitenutaSchema, // 2.1.1.5
-    DatiBollo: DatiBolloSchema, // 2.1.1.6
-    DatiCassaPrevidenziale: DatiCassaPrevidenzialeSchema, // 2.1.1.7
-    ScontoMaggiorazione: ScontoMaggiorazioneSchema, // 2.1.1.8
-    ImportoTotaleDocumento: ImportoTotaleDocumentoSchema, // 2.1.1.9
-    Arrotondamento: ArrotondamentoSchema, // 2.1.1.10
-    Causale: CausaleSchema, // 2.1.1.11
-    Art73: Art73Schema // 2.1.1.12
-  }).required()
+  DatiGeneraliDocumento: DatiGeneraliDocumentoSchema.required(), // 2.1.1
+  DatiOrdineAcquisto: DatiOrdineAcquistoSchema // 2.1.2
 }).required()
 
 const FatturaElettronicaBodyItemSchema = Joi.object().keys({
