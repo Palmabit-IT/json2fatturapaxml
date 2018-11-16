@@ -2,6 +2,11 @@
 
 const Joi = require('joi')
 
+const RegimiFiscaliValidi = ['RF01', 'RF02', 'RF03', 'RF04', 'RF05', 'RF06', 'RF07', 'RF08', 'RF09','RF10', 'RF11', 'RF12', 'RF13', 'RF14', 'RF15', 'RF16', 'RF17', 'RF18', 'RF19']
+
+const IdPaeseSchema = Joi.string().uppercase().length(2)
+const IdCodiceSchema = Joi.string().alphanum().min(2).max(28)
+
 const DatiTrasmissioneSchema = Joi.object().keys({
   IdTrasmittente: Joi.object().keys({
     IdPaese: Joi.string().required().length(2),
@@ -21,8 +26,25 @@ const DatiTrasmissioneSchema = Joi.object().keys({
   })
 }).required()
 
+const DatiAnagraficiCedentePrestatoreSchema = Joi.object().keys({
+  IdFiscaleIVA: Joi.object().keys({
+    IdPaese: IdPaeseSchema.required(),
+    IdCodice: IdCodiceSchema.required()
+  }).required(),
+  Anagrafica: Joi.object().keys({
+    Denominazione: Joi.string().alphanum().min(1).max(80),
+    Nome: Joi.string().alphanum().min(1).max(60),
+    Cognome: Joi.string().alphanum().min(1).max(60),
+    RegimeFiscale: Joi.valid(RegimiFiscaliValidi).required()
+  }).required()
+}).required()
+
+const CedentePrestatoreSchema = Joi.object().keys({
+  DatiAnagrafici: DatiAnagraficiCedentePrestatoreSchema
+}).required()
 const FatturaElettronicaHeaderSchema = Joi.object().keys({
-  DatiTrasmissione: DatiTrasmissioneSchema
+  DatiTrasmissione: DatiTrasmissioneSchema,
+  CedentePrestatore: CedentePrestatoreSchema
 }).required()
 
 module.exports = Joi.object().keys({
