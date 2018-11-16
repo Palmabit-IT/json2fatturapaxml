@@ -153,6 +153,11 @@ const DatiTrasportoSchema = Joi.object().keys({
   DataOraConsegna: Joi.string().isoDate().raw().length(19) // 2.1.9.13
 })
 
+const FatturaPrincipaleSchema = Joi.object().keys({
+  NumeroFatturaPrincipale: Joi.string().min(1).max(20).required(), // 2.1.10.1
+  DataFatturaPrincipale: Joi.string().isoDate().raw().length(10) // 2.1.10.2
+})
+
 const DatiGeneraliSchema = Joi.object().keys({
   DatiGeneraliDocumento: DatiGeneraliDocumentoSchema.required(), // 2.1.1
   DatiOrdineAcquisto: DatiOrdineAcquistoSchema, // 2.1.2
@@ -162,7 +167,8 @@ const DatiGeneraliSchema = Joi.object().keys({
   DatiFattureCollegate: DatiOrdineAcquistoSchema, // 2.1.6
   DatiSAL: DatiSALSchema, // 2.1.7
   DatiDDT: DatiDDTSchema, // 2.1.8
-  DatiTrasporto: DatiTrasportoSchema // 2.1.9
+  DatiTrasporto: DatiTrasportoSchema, // 2.1.9
+  FatturaPrincipale: FatturaPrincipaleSchema // 2.1.10
 }).required()
 
 const FatturaElettronicaBodyItemSchema = Joi.object().keys({
