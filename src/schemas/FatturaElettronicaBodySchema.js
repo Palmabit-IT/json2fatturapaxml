@@ -89,13 +89,22 @@ const DatiOrdineAcquistoSchema = Joi.alternatives().try(
   Joi.array().items(DatiOrdineAcquistoItemSchema),
   DatiOrdineAcquistoItemSchema)
 
+const DatiSALItemSchema = Joi.object().keys({
+  RiferimentoFase: Joi.string().min(1).max(3).required() // 2.1.7.1
+}).required()
+
+const DatiSALSchema = Joi.alternatives().try(
+  Joi.array().items(DatiSALItemSchema),
+  DatiSALItemSchema)
+
 const DatiGeneraliSchema = Joi.object().keys({
   DatiGeneraliDocumento: DatiGeneraliDocumentoSchema.required(), // 2.1.1
   DatiOrdineAcquisto: DatiOrdineAcquistoSchema, // 2.1.2
   DatiContratto: DatiOrdineAcquistoSchema, // 2.1.3
   DatiConvenzione: DatiOrdineAcquistoSchema, // 2.1.4
   DatiRicezione: DatiOrdineAcquistoSchema, // 2.1.5
-  DatiFattureCollegate: DatiOrdineAcquistoSchema // 2.1.6
+  DatiFattureCollegate: DatiOrdineAcquistoSchema, // 2.1.6
+  DatiSAL: DatiSALSchema // 2.1.7
 }).required()
 
 const FatturaElettronicaBodyItemSchema = Joi.object().keys({
