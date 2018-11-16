@@ -7,6 +7,7 @@ const RegimiFiscaliValidi = ['RF01', 'RF02', 'RF03', 'RF04', 'RF05', 'RF06', 'RF
 const IdPaeseSchema = Joi.string().uppercase().length(2)
 const IdCodiceSchema = Joi.string().alphanum().min(2).max(28)
 const EmailSchema = Joi.string().email().min(2).max(256)
+const RiferimentoAmministrazioneSchema = Joi.string().alphanum().min(1).max(20)
 
 const DatiTrasmissioneSchema = Joi.object().keys({
   IdTrasmittente: Joi.object().keys({
@@ -77,7 +78,8 @@ const CedentePrestatoreSchema = Joi.object().keys({
   Sede: SedeCedentePrestatoreSchema,
   StabileOrganizzazione: StabileOrganizzazioneCedentePrestatoreSchema,
   IscrizioneREA: IscrizioneREASchema,
-  Contatti: ContattiCedentePrestatoreSchema
+  Contatti: ContattiCedentePrestatoreSchema,
+  RiferimentoAmministrazione: RiferimentoAmministrazioneSchema
 }).required()
 const FatturaElettronicaHeaderSchema = Joi.object().keys({
   DatiTrasmissione: DatiTrasmissioneSchema,
