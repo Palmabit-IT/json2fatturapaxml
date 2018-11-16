@@ -130,11 +130,26 @@ const CessionarioCommittenteSchema = Joi.object().keys({
   })
 }).required()
 
+const TerzoIntermediarioOSoggettoEmittenteSchema = Joi.object().keys({
+  DatiAnagrafici: Joi.object().keys({
+    IdFiscaleIVA: IdFiscaleIVASchema,
+    CodiceFiscale: CodiceFiscaleSchema,
+    Anagrafica: Joi.object().keys({
+      Denominazione: Joi.string().alphanum().min(1).max(80),
+      Nome: Joi.string().alphanum().min(1).max(60),
+      Cognome: Joi.string().alphanum().min(1).max(60),
+      Titolo: Joi.string().min(2).max(10),
+      CodEORI: Joi.string().min(13).max(17)
+    }).required()
+  }).required()
+})
+
 const FatturaElettronicaHeaderSchema = Joi.object().keys({
   DatiTrasmissione: DatiTrasmissioneSchema, // 1.1
   CedentePrestatore: CedentePrestatoreSchema, // 1.2
   RappresentanteFiscale: RappresentanteFiscaleSchema, // 1.3
-  CessionarioCommittente: CessionarioCommittenteSchema // 1.4
+  CessionarioCommittente: CessionarioCommittenteSchema, // 1.4
+  TerzoIntermediarioOSoggettoEmittente: TerzoIntermediarioOSoggettoEmittenteSchema // 1.5
 }).required()
 
 module.exports = Joi.object().keys({
