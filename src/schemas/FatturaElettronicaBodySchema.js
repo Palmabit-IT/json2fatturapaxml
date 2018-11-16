@@ -97,6 +97,16 @@ const DatiSALSchema = Joi.alternatives().try(
   Joi.array().items(DatiSALItemSchema),
   DatiSALItemSchema)
 
+const DatiDDTItemSchema = Joi.object().keys({
+  NumeroDDT: Joi.string().min(1).max(20).required(), // 2.1.8.1
+  DataDDT: Joi.string().isoDate().raw().required(), // 2.1.8.2
+  RiferimentoNumeroLinea: RiferimentoNumeroLineaSchema // 2.1.8.3
+}).required()
+
+const DatiDDTSchema = Joi.alternatives().try(
+  Joi.array().items(DatiDDTItemSchema),
+  DatiDDTItemSchema)
+
 const DatiGeneraliSchema = Joi.object().keys({
   DatiGeneraliDocumento: DatiGeneraliDocumentoSchema.required(), // 2.1.1
   DatiOrdineAcquisto: DatiOrdineAcquistoSchema, // 2.1.2
@@ -104,7 +114,8 @@ const DatiGeneraliSchema = Joi.object().keys({
   DatiConvenzione: DatiOrdineAcquistoSchema, // 2.1.4
   DatiRicezione: DatiOrdineAcquistoSchema, // 2.1.5
   DatiFattureCollegate: DatiOrdineAcquistoSchema, // 2.1.6
-  DatiSAL: DatiSALSchema // 2.1.7
+  DatiSAL: DatiSALSchema, // 2.1.7
+  DatiDDT: DatiDDTSchema // 2.1.8
 }).required()
 
 const FatturaElettronicaBodyItemSchema = Joi.object().keys({
