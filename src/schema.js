@@ -13,7 +13,12 @@ const DatiTrasmissioneSchema = Joi.object().keys({
     is: 'FPA12',
     then: Joi.string().alphanum().length(6),
     otherwise: Joi.string().alphanum().length(7)
-  }).required()
+  }).required(),
+  PECDestinatario: Joi.alternatives().when('CodiceDestinatario', { // FIXME
+    is: '0000000',
+    then: Joi.string().email().min(2).max(256).required(),
+    otherwise: Joi.forbidden()
+  })
 }).required()
 
 const FatturaElettronicaHeaderSchema = Joi.object().keys({

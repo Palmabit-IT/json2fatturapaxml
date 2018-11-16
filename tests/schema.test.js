@@ -161,6 +161,25 @@ describe('Schema', () => {
           expect(details.some(e => e.message === expectedMessage)).toBeTruthy()
         })
       })
+      /*
+      describe('PECDestinatario is required when CodiceDestinatario == 0000000', () => {
+        const value = {
+          FatturaElettronicaHeader: {
+            DatiTrasmissione: {
+              IdTrasmittente: {
+                IdPaese: 'IT',
+                IdCodice: 'IdCodice'
+              },
+              CodiceDestinatario: '0000000',
+              ProgressivoInvio: '001',
+              FormatoTrasmissione: 'FPR12'
+            }
+          }
+        }
+        const result = Joi.validate(value, schema)
+        console.log('result', result)
+      })
+       */
     })
   })
 })
