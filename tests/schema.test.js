@@ -100,6 +100,66 @@ describe('Schema', () => {
           } = result || {}
           expect(details.some(e => e.message === '"IdPaese" length must be 2 characters long')).toBeTruthy()
         })
+
+        test('should require idCodice', () => {
+          const value = {
+            FatturaElettronicaHeader: {
+              DatiTrasmissione: {
+                IdTrasmittente: {
+                  IdPaese: 'IT'
+                }
+              }
+            }
+          }
+          const result = Joi.validate(value, schema)
+          const {
+            error: {
+              details = []
+            } = {}
+          } = result || {}
+          expect(details.some(e => e.message === '"IdCodice" is required')).toBeTruthy()
+        })
+
+        test('IdCodice should be a string', () => {
+          const value = {
+            FatturaElettronicaHeader: {
+              DatiTrasmissione: {
+                IdTrasmittente: {
+                  IdPaese: 'IT',
+                  IdCodice: 1
+                }
+              }
+            }
+          }
+          const result = Joi.validate(value, schema)
+          const {
+            error: {
+              details = []
+            } = {}
+          } = result || {}
+          expect(details.some(e => e.message === '"IdCodice" must be a string')).toBeTruthy()
+        })
+
+        test('"IdCodice" length must be 2 characters long', () => {
+          const value = {
+            FatturaElettronicaHeader: {
+              DatiTrasmissione: {
+                IdTrasmittente: {
+                  IdPaese: 'IT',
+                  IdCodice: 'abcdefghilmnoprstuvzabcdefghi'
+                }
+              }
+            }
+          }
+          const result = Joi.validate(value, schema)
+          const {
+            error: {
+              details = []
+            } = {}
+          } = result || {}
+          const expectedMessage = '"IdCodice" length must be less than or equal to 28 characters long'
+          expect(details.some(e => e.message === expectedMessage)).toBeTruthy()
+        })
       })
     })
   })

@@ -4,7 +4,8 @@ const Joi = require('joi')
 
 const DatiTrasmissioneSchema = Joi.object().keys({
   IdTrasmittente: Joi.object().keys({
-    IdPaese: Joi.string().required().length(2)
+    IdPaese: Joi.string().required().length(2),
+    IdCodice: Joi.string().required().min(2).max(28)
   }).required()
 }).required()
 
