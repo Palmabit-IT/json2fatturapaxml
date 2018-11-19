@@ -1,7 +1,7 @@
 'use strict'
 
 const Joi = require('joi')
-const schema = require('../src/schema')
+const schema = require('../src/schemas/FatturaElettronicaSchema')
 
 describe('Schema', () => {
   describe('FatturaElettronicaHeader', () => {
