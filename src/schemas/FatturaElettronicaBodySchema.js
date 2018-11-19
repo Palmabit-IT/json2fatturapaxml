@@ -15,6 +15,8 @@ const IdFiscaleIVASchema = Joi.object().keys({
   IdCodice: IdCodiceSchema.required()
 })
 const CodiceFiscaleSchema = Joi.string().alphanum().min(11).max(16)
+const PrezzoSchema = Joi.string().regex(/^\d{1,19}(\.\d{2,2})$/)
+const AliquotaIVASchema = Joi.string().regex(/^\d{1,19}(\.\d{2,2})$/)
 
 const DatiRitenutaSchema = Joi.object().keys({
   TipoRitenuta: Joi.valid(TipiRitenuteValide).required(),
@@ -33,7 +35,7 @@ const DatiCassaPrevidenzialeItemSchema = Joi.object().keys({
   AlCassa: Joi.number().min(0).max(100).precision(4).required(),
   ImportoContributoCassa: Joi.number().required(),
   ImponibileCassa: Joi.number(),
-  AliquotaIVA: Joi.number().min(0).max(100).precision(4).required(),
+  AliquotaIVA: AliquotaIVASchema.required(),
   Ritenuta: Joi.valid('SI'),
   Natura: Joi.valid(NaturaValidi),
   RiferimentoAmministrazione: Joi.string().min(1).max(20)
@@ -201,10 +203,10 @@ const DettaglioLineeItemSchema = Joi.object().keys({
   UnitaMisura: Joi.string().min(1).max(10), // 2.2.1.6
   DataInizioPeriodo: Joi.string().isoDate().raw().length(10), // 2.2.1.7
   DataFinePeriodo: Joi.string().isoDate().raw().length(10), // 2.2.1.8
-  PrezzoUnitario: Joi.number().min(0).required(), // 2.2.1.9
+  PrezzoUnitario: PrezzoSchema.required(), // 2.2.1.9
   ScontoMaggiorazione: ScontoMaggiorazioneSchema, // 2.2.1.10
-  PrezzoTotale: Joi.number().required(), // 2.2.1.11
-  AliquotaIVA: Joi.number().min(0).max(100).required(), // 2.2.1.12
+  PrezzoTotale: PrezzoSchema.required(), // 2.2.1.11
+  AliquotaIVA: AliquotaIVASchema.required(), // 2.2.1.12
   Ritenuta: Joi.valid('SI'), // 2.2.1.13
   Natura: Joi.valid(NaturaValidi), // 2.2.1.14
   RiferimentoAmministrazione: Joi.string().min(1).max(20), // 2.2.1.15
@@ -216,12 +218,12 @@ const DettaglioLineeSchema = Joi.alternatives().try(
   DettaglioLineeItemSchema)
 
 const DatiRiepilogoItemSchema = Joi.object().keys({
-  AliquotaIVA: Joi.number().min(0).max(100).precision(4).required(), // 2.2.2.1
+  AliquotaIVA: AliquotaIVASchema.required(), // 2.2.2.1
   Natura: Joi.valid(NaturaValidi), // 2.2.2.2
   SpeseAccessorie: Joi.number(), // 2.2.2.3
   Arrotondamento: Joi.number(), // 2.2.2.4
-  ImponibileImporto: Joi.number().required(), // 2.2.2.5
-  Imposta: Joi.number().required(), // 2.2.2.6
+  ImponibileImporto: PrezzoSchema.required(), // 2.2.2.5
+  Imposta: PrezzoSchema.required(), // 2.2.2.6
   EsigibilitaIVA: Joi.valid('I', 'D', 'S'), // 2.2.2.7
   RiferimentoNormativo: Joi.string().min(1).max(100) // 2.2.2.8
 })
