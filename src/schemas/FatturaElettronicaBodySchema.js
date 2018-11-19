@@ -214,8 +214,24 @@ const DettaglioLineeSchema = Joi.alternatives().try(
   Joi.array().items(DettaglioLineeItemSchema),
   DettaglioLineeItemSchema)
 
+const DatiRiepilogoItemSchema = Joi.object().keys({
+  AliquotaIVA: Joi.number().min(0).max(100).precision(4).required(), // 2.2.2.1
+  Natura: Joi.valid(NaturaValidi), // 2.2.2.2
+  SpeseAccessorie: Joi.number(), // 2.2.2.3
+  Arrotondamento: Joi.number(), // 2.2.2.4
+  ImponibileImporto: Joi.number().required(), // 2.2.2.5
+  Imposta: Joi.number().required(), // 2.2.2.6
+  EsigibilitaIVA: Joi.valid('I', 'D', 'S'), // 2.2.2.7
+  RiferimentoNormativo: Joi.string().min(1).max(100) // 2.2.2.8
+})
+
+const DatiRiepilogoSchema = Joi.alternatives().try(
+  Joi.array().items(DatiRiepilogoItemSchema),
+  DatiRiepilogoItemSchema)
+
 const DatiBeniServiziSchema = Joi.object().keys({
-  DettaglioLinee: DettaglioLineeSchema.required()
+  DettaglioLinee: DettaglioLineeSchema.required(), // 2.2.1
+  DatiRiepilogo: DatiRiepilogoSchema.required() // 2.2.2
 })
 
 const FatturaElettronicaBodyItemSchema = Joi.object().keys({
