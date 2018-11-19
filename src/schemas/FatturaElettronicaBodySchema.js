@@ -6,6 +6,7 @@ const TipiDocumentiValidi = ['TD01', 'TD02', 'TD02', 'TD03', 'TD04', 'TD05', 'TD
 const TipiRitenuteValide = ['RT01', 'RT02']
 const TipiCassaValidi = ['TC01', 'TC02', 'TC03', 'TC04', 'TC05', 'TC06', 'TC07', 'TC08', 'TC09', 'TC10', 'TC11', 'TC12', 'TC13', 'TC14', 'TC15', 'TC16', 'TC17', 'TC18', 'TC19', 'TC20', 'TC21', 'TC22']
 const NaturaValidi = ['N1', 'N2', 'N3', 'N4', 'N5', 'N6', 'N7']
+const ModalitaPagamentoValidi = ['MP01', 'MP02', 'MP03', 'MP04', 'MP05', 'MP06', 'MP07', 'MP08', 'MP09', 'MP10', 'MP11', 'MP12', 'MP13', 'MP14', 'MP15', 'MP16', 'MP17', 'MP18', 'MP19', 'MP20', 'MP21', 'MP22']
 
 const IdPaeseSchema = Joi.string().uppercase().length(2)
 const IdCodiceSchema = Joi.string().alphanum().min(2).max(28)
@@ -239,10 +240,48 @@ const DatiVeicoliSchema = Joi.object().keys({
   TotalePercorso: Joi.string().min(1).max(15).required() // 2.3.2
 })
 
+const DettaglioPagamentoItemSchema = Joi.object().keys({
+  Beneficiario: Joi.string().min(1).max(200), // 2.4.2.1
+  ModalitaPagamento: Joi.valid(ModalitaPagamentoValidi).required(), // 2.4.2.2
+  DataRiferimentoTerminiPagamento: Joi.string().isoDate().raw(), // 2.4.2.3
+  GiorniTerminiPagamento: Joi.number().integer().min(0).max(999), // 2.4.2.4 // 2.4.2.4
+  DataScadenzaPagamento: Joi.string().isoDate().raw(), // 2.4.2.5
+  ImportoPagamento: Joi.number().required(), // 2.4.2.6
+  CodUfficioPostale: Joi.string().min(1).max(20), // 2.4.2.7
+  CognomeQuietanzante: Joi.string().min(1).max(60), // 2.4.2.8
+  NomeQuietanzante: Joi.string().min(1).max(60), // 2.4.2.9
+  CFQuietanzante: Joi.string().length(16), // 2.4.2.10
+  TitoloQuietanzante: Joi.string().min(2).max(10), // 2.4.2.11
+  IstitutoFinanziario: Joi.string().min(1).max(80), // 2.4.2.12
+  IBAN: Joi.string().min(15).max(34), // 2.4.2.13
+  ABI: Joi.string().length(5), // 2.4.2.14
+  CAB: Joi.string().length(5), // 2.4.2.15
+  BIC: Joi.string().min(8).max(11), // 2.4.2.16
+  ScontoPagamentoAnticipato: Joi.number(), // 2.4.2.17
+  DataLimitePagamentoAnticipato: Joi.string().isoDate().raw(), // 2.4.2.18
+  PenalitaPagamentiRitardati: Joi.number(), // 2.4.2.19
+  DataDecorrenzaPenale: Joi.string().isoDate().raw(), // 2.4.2.20
+  CodicePagamento: Joi.string().min(1).max(60) // 2.4.2.21
+}).required()
+
+const DettaglioPagamentoSchema = Joi.alternatives().try(
+  Joi.array().items(DettaglioPagamentoItemSchema),
+  DettaglioPagamentoItemSchema)
+
+const DatiPagamentoItemSchema = Joi.object().keys({
+  CondizioniPagamento: Joi.valid('TP01', 'TP02', 'TP03').required(), // 2.4.1
+  DettaglioPagamento: DettaglioPagamentoSchema.required() // 2.4.2
+}).required()
+
+const DatiPagamentoSchema = Joi.alternatives().try(
+  Joi.array().items(DatiPagamentoItemSchema),
+  DatiPagamentoItemSchema)
+
 const FatturaElettronicaBodyItemSchema = Joi.object().keys({
   DatiGenerali: DatiGeneraliSchema, // 2.1
   DatiBeniServizi: DatiBeniServiziSchema.required(), // 2.2
-  DatiVeicoli: DatiVeicoliSchema // 2.3
+  DatiVeicoli: DatiVeicoliSchema, // 2.3
+  DatiPagamento: DatiPagamentoSchema // 2.4
 }).required()
 
 const FatturaElettronicaBodySchema = Joi.alternatives().try(
