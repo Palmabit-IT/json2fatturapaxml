@@ -234,9 +234,15 @@ const DatiBeniServiziSchema = Joi.object().keys({
   DatiRiepilogo: DatiRiepilogoSchema.required() // 2.2.2
 })
 
+const DatiVeicoliSchema = Joi.object().keys({
+  Data: Joi.string().isoDate().raw().required(), // 2.3.1
+  TotalePercorso: Joi.string().min(1).max(15).required() // 2.3.2
+})
+
 const FatturaElettronicaBodyItemSchema = Joi.object().keys({
   DatiGenerali: DatiGeneraliSchema, // 2.1
-  DatiBeniServizi: DatiBeniServiziSchema.required() // 2.2
+  DatiBeniServizi: DatiBeniServiziSchema.required(), // 2.2
+  DatiVeicoli: DatiVeicoliSchema // 2.3
 }).required()
 
 const FatturaElettronicaBodySchema = Joi.alternatives().try(
