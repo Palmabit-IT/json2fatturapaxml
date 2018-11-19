@@ -277,11 +277,24 @@ const DatiPagamentoSchema = Joi.alternatives().try(
   Joi.array().items(DatiPagamentoItemSchema),
   DatiPagamentoItemSchema)
 
+const AllegatiItemSchema = Joi.object().keys({
+  NomeAttachment: Joi.string().min(1).max(60).required(), // 2.5.1
+  AlgoritmoCompressione: Joi.string().min(1).max(10), // 2.5.2
+  FormatoAttachment: Joi.string().min(1).max(10), // 2.5.3
+  DescrizioneAttachment: Joi.string().min(1).max(100), // 2.5.4
+  Attachment: Joi.string().required() // 2.5.5
+}).required()
+
+const AllegatiSchema = Joi.alternatives().try(
+  Joi.array().items(AllegatiItemSchema),
+  AllegatiItemSchema)
+
 const FatturaElettronicaBodyItemSchema = Joi.object().keys({
   DatiGenerali: DatiGeneraliSchema, // 2.1
   DatiBeniServizi: DatiBeniServiziSchema.required(), // 2.2
   DatiVeicoli: DatiVeicoliSchema, // 2.3
-  DatiPagamento: DatiPagamentoSchema // 2.4
+  DatiPagamento: DatiPagamentoSchema, // 2.4
+  Allegati: AllegatiSchema // 2.5
 }).required()
 
 const FatturaElettronicaBodySchema = Joi.alternatives().try(
