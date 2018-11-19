@@ -40,9 +40,9 @@ const DatiAnagraficiCedentePrestatoreSchema = Joi.object().keys({
   Anagrafica: Joi.object().keys({
     Denominazione: Joi.string().alphanum().min(1).max(80),
     Nome: Joi.string().alphanum().min(1).max(60),
-    Cognome: Joi.string().alphanum().min(1).max(60),
-    RegimeFiscale: Joi.valid(RegimiFiscaliValidi).required()
-  }).required()
+    Cognome: Joi.string().alphanum().min(1).max(60)
+  }).required(),
+  RegimeFiscale: Joi.valid(RegimiFiscaliValidi).required()
 }).required()
 
 const SedeCedentePrestatoreSchema = Joi.object().keys({
@@ -78,12 +78,12 @@ const ContattiCedentePrestatoreSchema = Joi.object().keys({
 })
 
 const CedentePrestatoreSchema = Joi.object().keys({
-  DatiAnagrafici: DatiAnagraficiCedentePrestatoreSchema,
-  Sede: SedeCedentePrestatoreSchema,
-  StabileOrganizzazione: StabileOrganizzazioneSchema,
-  IscrizioneREA: IscrizioneREASchema,
-  Contatti: ContattiCedentePrestatoreSchema,
-  RiferimentoAmministrazione: RiferimentoAmministrazioneSchema
+  DatiAnagrafici: DatiAnagraficiCedentePrestatoreSchema, // 1.2.1
+  Sede: SedeCedentePrestatoreSchema, // 1.2.2
+  StabileOrganizzazione: StabileOrganizzazioneSchema, // 1.2.3
+  IscrizioneREA: IscrizioneREASchema, // 1.2.4
+  Contatti: ContattiCedentePrestatoreSchema, // 1.2.5
+  RiferimentoAmministrazione: RiferimentoAmministrazioneSchema // 1.2.6
 }).required()
 
 const RappresentanteFiscaleSchema = Joi.object().keys({
