@@ -171,8 +171,56 @@ const DatiGeneraliSchema = Joi.object().keys({
   FatturaPrincipale: FatturaPrincipaleSchema // 2.1.10
 }).required()
 
+const CodiceArticoloItemSchema = Joi.object().keys({
+  CodiceTipo: Joi.string().min(1).max(35).required(), // 2.2.1.3.1
+  CodiceValore: Joi.string().min(1).max(35).required() // 2.2.1.3.2
+})
+
+const CodiceArticoloSchema = Joi.alternatives().try(
+  Joi.array().items(CodiceArticoloItemSchema),
+  CodiceArticoloItemSchema)
+
+const AltriDatiGestionaliItemSchema = Joi.object().keys({
+  TipoDato: Joi.string().min(1).max(10).required(), // 2.2.1.16.1
+  RiferimentoTesto: Joi.string().min(1).max(60), // 2.2.1.16.2
+  RiferimentoNumero: Joi.number(), // 2.2.1.16.3
+  RiferimentoData: Joi.string().isoDate().raw().length(10) // 2.2.1.16.4
+})
+
+const AltriDatiGestionaliSchema = Joi.alternatives().try(
+  Joi.array().items(AltriDatiGestionaliItemSchema),
+  AltriDatiGestionaliItemSchema)
+
+const DettaglioLineeItemSchema = Joi.object().keys({
+  NumeroLinea: Joi.number().min(0).max(9999).required(), // 2.2.1.1
+  TipoCessionePrestazione: Joi.valid('SC', 'PR', 'AB', 'AC'), // 2.2.1.2
+  CodiceArticolo: CodiceArticoloSchema, // 2.2.1.3
+  Descrizione: Joi.string().min(1).max(1000).required(), // 2.2.1.4
+  Quantita: Joi.number(), // 2.2.1.5
+  UnitaMisura: Joi.string().min(1).max(10), // 2.2.1.6
+  DataInizioPeriodo: Joi.string().isoDate().raw().length(10), // 2.2.1.7
+  DataFinePeriodo: Joi.string().isoDate().raw().length(10), // 2.2.1.8
+  PrezzoUnitario: Joi.number().min(0).required(), // 2.2.1.9
+  ScontoMaggiorazione: ScontoMaggiorazioneSchema, // 2.2.1.10
+  PrezzoTotale: Joi.number().required(), // 2.2.1.11
+  AliquotaIVA: Joi.number().min(0).max(100).required(), // 2.2.1.12
+  Ritenuta: Joi.valid('SI'), // 2.2.1.13
+  Natura: Joi.valid(NaturaValidi), // 2.2.1.14
+  RiferimentoAmministrazione: Joi.string().min(1).max(20), // 2.2.1.15
+  AltriDatiGestionali: AltriDatiGestionaliSchema // 2.2.1.16
+}).required()
+
+const DettaglioLineeSchema = Joi.alternatives().try(
+  Joi.array().items(DettaglioLineeItemSchema),
+  DettaglioLineeItemSchema)
+
+const DatiBeniServiziSchema = Joi.object().keys({
+  DettaglioLinee: DettaglioLineeSchema.required()
+})
+
 const FatturaElettronicaBodyItemSchema = Joi.object().keys({
-  DatiGenerali: DatiGeneraliSchema // 2.1
+  DatiGenerali: DatiGeneraliSchema, // 2.1
+  DatiBeniServizi: DatiBeniServiziSchema.required() // 2.2
 }).required()
 
 const FatturaElettronicaBodySchema = Joi.alternatives().try(
