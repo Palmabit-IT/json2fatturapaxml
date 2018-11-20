@@ -44,7 +44,8 @@ const DatiTrasmissioneSchema = Joi.object().keys({
 }).required()
 
 const DatiAnagraficiCedentePrestatoreSchema = Joi.object().keys({
-  IdFiscaleIVA: IdFiscaleIVASchema.required(),
+  IdFiscaleIVA: IdFiscaleIVASchema.required(), // 1.2.1.1
+  CodiceFiscale: CodiceFiscaleSchema, // 1.2.1.2
   Anagrafica: Joi.object().keys({
     Denominazione: Joi.string().alphanum().min(1).max(80),
     Nome: Joi.string().alphanum().min(1).max(60),
