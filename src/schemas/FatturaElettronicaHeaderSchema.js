@@ -18,6 +18,11 @@ const CodiceFiscaleSchema = Joi.string().alphanum().min(11).max(16)
 const IndirizzoSchema = Joi.string().alphanum().min(1).max(60)
 const NumeroCivicoSchema = Joi.string().alphanum().min(1).max(8)
 
+const ContattiTrasmittenteSchema = Joi.object().keys({
+  Telefono: Joi.string().min(5).max(12), // 1.1.5.1
+  Email: EmailSchema // 1.1.5.2
+})
+
 const DatiTrasmissioneSchema = Joi.object().keys({
   IdTrasmittente: Joi.object().keys({
     IdPaese: IdPaeseSchema.required(),
@@ -30,6 +35,7 @@ const DatiTrasmissioneSchema = Joi.object().keys({
     then: Joi.string().alphanum().length(6),
     otherwise: Joi.string().alphanum().length(7)
   }).required(),
+  ContattiTrasmittente: ContattiTrasmittenteSchema, // 1.1.5
   PECDestinatario: Joi.alternatives().when('CodiceDestinatario', { // FIXME
     is: '0000000',
     then: EmailSchema.required(),

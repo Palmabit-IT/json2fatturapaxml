@@ -84,7 +84,7 @@ describe('json2fatturapaxml', () => {
     expect(result).toEqual(expected)
   })
 
-  test('should generate minimal xml for FPR12', () => {
+  test('should generate minimal xml for FPA12', () => {
     const invoice = {
       FatturaElettronicaHeader: {
         DatiTrasmissione: {
