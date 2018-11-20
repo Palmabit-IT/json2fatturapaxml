@@ -1,6 +1,6 @@
 'use strict'
 
-const BaseJoi = require('joi')
+const BaseJoi = require('joi-currency-code')(require('joi'))
 const JoiCountryExtension = require('joi-country-extension')
 const Joi = BaseJoi.extend(JoiCountryExtension)
 
@@ -71,7 +71,7 @@ const Art73Schema = Joi.valid('SI')
 
 const DatiGeneraliDocumentoSchema = Joi.object().keys({
   TipoDocumento: Joi.valid(TipiDocumentiValidi).required(), // 2.1.1.1
-  Divisa: Joi.string().length(3).required(), // 2.1.1.2
+  Divisa: Joi.string().currency().required(), // 2.1.1.2
   Data: Joi.string().isoDate().raw().required(), // 2.1.1.3
   Numero: Joi.string().max(20).required(), // 2.1.1.4
   DatiRitenuta: DatiRitenutaSchema, // 2.1.1.5
