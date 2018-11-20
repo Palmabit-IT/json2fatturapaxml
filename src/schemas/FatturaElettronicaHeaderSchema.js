@@ -54,6 +54,7 @@ const DatiAnagraficiCedentePrestatoreSchema = Joi.object().keys({
     CodEORI: Joi.string().min(13).max(17) // 1.2.1.3.5
   }).required(),
   AlboProfessionale: Joi.string().min(1).max(60), // 1.2.1.4
+  ProvinciaAlbo: Joi.string().length(2), // 1.2.1.5
   RegimeFiscale: Joi.valid(RegimiFiscaliValidi).required()
 }).required()
 
