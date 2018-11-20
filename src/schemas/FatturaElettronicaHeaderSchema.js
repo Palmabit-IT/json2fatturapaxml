@@ -47,9 +47,11 @@ const DatiAnagraficiCedentePrestatoreSchema = Joi.object().keys({
   IdFiscaleIVA: IdFiscaleIVASchema.required(), // 1.2.1.1
   CodiceFiscale: CodiceFiscaleSchema, // 1.2.1.2
   Anagrafica: Joi.object().keys({
-    Denominazione: Joi.string().alphanum().min(1).max(80),
-    Nome: Joi.string().alphanum().min(1).max(60),
-    Cognome: Joi.string().alphanum().min(1).max(60)
+    Denominazione: Joi.string().alphanum().min(1).max(80), // 1.2.1.3.1
+    Nome: Joi.string().alphanum().min(1).max(60), // 1.2.1.3.2
+    Cognome: Joi.string().alphanum().min(1).max(60), // 1.2.1.3.3
+    Titolo: Joi.string().min(2).max(10), // 1.2.1.3.4
+    CodEORI: Joi.string().min(13).max(17) // 1.2.1.3.5
   }).required(),
   RegimeFiscale: Joi.valid(RegimiFiscaliValidi).required()
 }).required()
