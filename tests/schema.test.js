@@ -54,12 +54,13 @@ describe('Schema', () => {
               }
             }
           }
-          const result = Joi.validate(value, schema)
+          const result = Joi.validate(value, schema, { abortEarly: false })
           const {
             error: {
               details = []
             } = {}
           } = result || {}
+          // console.log('details', details)
           expect(details.some(e => e.message === '"IdPaese" is required')).toBeTruthy()
         })
 
@@ -82,7 +83,7 @@ describe('Schema', () => {
           expect(details.some(e => e.message === '"IdPaese" must be a string')).toBeTruthy()
         })
 
-        test('"IdPaese" length must be 2 characters long', () => {
+        test('"IdPaese" needs to be a valid ISO 3166-1 alpha-2 country code', () => {
           const value = {
             FatturaElettronicaHeader: {
               DatiTrasmissione: {
@@ -98,7 +99,7 @@ describe('Schema', () => {
               details = []
             } = {}
           } = result || {}
-          expect(details.some(e => e.message === '"IdPaese" length must be 2 characters long')).toBeTruthy()
+          expect(details.some(e => e.message === '"IdPaese" needs to be a valid ISO 3166-1 alpha-2 country code')).toBeTruthy()
         })
 
         test('should require idCodice', () => {
