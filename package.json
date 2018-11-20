@@ -1,6 +1,6 @@
 {
   "name": "json2fatturapaxml",
-  "version": "0.0.1",
+  "version": "0.0.1-beta.0",
   "description": "Crea una fattura elettronica partendo da un JSON",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "parser"
   ],
   "author": "Palmabit",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://gitlab.com/fatturazione-elettronica/json2fatturapaxml/issues"
   },
