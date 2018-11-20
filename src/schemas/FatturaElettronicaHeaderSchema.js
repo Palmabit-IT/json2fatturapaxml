@@ -20,7 +20,7 @@ const NumeroCivicoSchema = Joi.string().alphanum().min(1).max(8)
 
 const DatiTrasmissioneSchema = Joi.object().keys({
   IdTrasmittente: Joi.object().keys({
-    IdPaese: IdPaeseSchema,
+    IdPaese: IdPaeseSchema.required(),
     IdCodice: Joi.string().alphanum().required().min(2).max(28)
   }).required(),
   ProgressivoInvio: Joi.string().alphanum().required().min(1).max(10),
