@@ -32,5 +32,8 @@
   },
   "standard": {
     "envs": ["jest"]
+  },
+  "jest": {
+    "verbose": true
   }
 }
