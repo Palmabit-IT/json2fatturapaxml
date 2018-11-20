@@ -28,10 +28,13 @@
   },
   "dependencies": {
     "joi": "^14.0.6",
+    "joi-country-extension": "^1.2.0",
     "xml-js": "^1.6.8"
   },
   "standard": {
-    "envs": ["jest"]
+    "envs": [
+      "jest"
+    ]
   },
   "jest": {
     "verbose": true

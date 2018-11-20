@@ -1,6 +1,8 @@
 'use strict'
 
-const Joi = require('joi')
+const BaseJoi = require('joi')
+const JoiCountryExtension = require('joi-country-extension')
+const Joi = BaseJoi.extend(JoiCountryExtension)
 
 const TipiDocumentiValidi = ['TD01', 'TD02', 'TD02', 'TD03', 'TD04', 'TD05', 'TD06']
 const TipiRitenuteValide = ['RT01', 'RT02']
@@ -8,7 +10,7 @@ const TipiCassaValidi = ['TC01', 'TC02', 'TC03', 'TC04', 'TC05', 'TC06', 'TC07',
 const NaturaValidi = ['N1', 'N2', 'N3', 'N4', 'N5', 'N6', 'N7']
 const ModalitaPagamentoValidi = ['MP01', 'MP02', 'MP03', 'MP04', 'MP05', 'MP06', 'MP07', 'MP08', 'MP09', 'MP10', 'MP11', 'MP12', 'MP13', 'MP14', 'MP15', 'MP16', 'MP17', 'MP18', 'MP19', 'MP20', 'MP21', 'MP22']
 
-const IdPaeseSchema = Joi.string().uppercase().length(2)
+const IdPaeseSchema = Joi.string().country()
 const IdCodiceSchema = Joi.string().alphanum().min(2).max(28)
 const IdFiscaleIVASchema = Joi.object().keys({
   IdPaese: IdPaeseSchema.required(),

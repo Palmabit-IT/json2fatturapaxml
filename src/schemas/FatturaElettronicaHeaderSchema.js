@@ -1,10 +1,12 @@
 'use strict'
 
-const Joi = require('joi')
+const BaseJoi = require('joi')
+const JoiCountryExtension = require('joi-country-extension')
+const Joi = BaseJoi.extend(JoiCountryExtension)
 
 const RegimiFiscaliValidi = ['RF01', 'RF02', 'RF03', 'RF04', 'RF05', 'RF06', 'RF07', 'RF08', 'RF09', 'RF10', 'RF11', 'RF12', 'RF13', 'RF14', 'RF15', 'RF16', 'RF17', 'RF18', 'RF19']
 
-const IdPaeseSchema = Joi.string().uppercase().length(2)
+const IdPaeseSchema = Joi.string().country()
 const IdCodiceSchema = Joi.string().alphanum().min(2).max(28)
 const EmailSchema = Joi.string().email().min(2).max(256)
 const RiferimentoAmministrazioneSchema = Joi.string().alphanum().min(1).max(20)
@@ -18,7 +20,7 @@ const NumeroCivicoSchema = Joi.string().alphanum().min(1).max(8)
 
 const DatiTrasmissioneSchema = Joi.object().keys({
   IdTrasmittente: Joi.object().keys({
-    IdPaese: Joi.string().required().length(2),
+    IdPaese: IdPaeseSchema,
     IdCodice: Joi.string().alphanum().required().min(2).max(28)
   }).required(),
   ProgressivoInvio: Joi.string().alphanum().required().min(1).max(10),
