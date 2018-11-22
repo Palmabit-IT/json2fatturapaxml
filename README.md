@@ -87,8 +87,17 @@ const invoice = {
         }
       }
     }
-    const fatturaPAxml = json2fatturapaxml(invoice)
+
+    const result = json2fatturapaxml(invoice)
+
+    if (!result.error) { // Check error
+      console.log('xml', result)
+    }
 ```
+
+### Error
+
+Il JSON in ingresso viene validato secondo questo [formato fattura].
 
 ## Running the tests
 
@@ -117,3 +126,5 @@ See also the list of [contributors](https://github.com/Palmabit-IT/json2fatturap
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+[formato fattura]: https://www.fatturapa.gov.it/export/fatturazione/sdi/fatturapa/v1.2.1/Rappresentazione_tabellare_del_tracciato_FatturaPA_versione_1.2.1.pdf
