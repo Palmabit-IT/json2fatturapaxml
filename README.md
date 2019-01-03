@@ -95,6 +95,8 @@ const invoice = {
     }
 ```
 
+Alcuni caratteri speciali possono essere sostituiti o rimossi dall'XML.
+
 ### Error
 
 Il JSON in ingresso viene validato secondo questo [formato fattura].
