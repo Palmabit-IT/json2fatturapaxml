@@ -17,26 +17,26 @@ const IdFiscaleIVASchema = Joi.object().keys({
   IdCodice: IdCodiceSchema.required()
 })
 const CodiceFiscaleSchema = Joi.string().alphanum().min(11).max(16)
-const PrezzoSchema = Joi.string().regex(/^\d{1,19}(\.\d{2,2})$/)
+const PrezzoSchema = Joi.string().regex(/^\d{1,13}(\.\d{2,6})$/)
 const AliquotaIVASchema = Joi.string().regex(/^\d{1,3}(\.\d{2,2})$/)
 
 const DatiRitenutaSchema = Joi.object().keys({
   TipoRitenuta: Joi.valid(TipiRitenuteValide).required(),
-  ImportoRitenuta: Joi.string().regex(/^\d{1,12}(\.\d{2,2})$/).required(), // min 4 max 15
+  ImportoRitenuta: Joi.string().regex(/^\d{1,12}(\.\d{2,6})$/).required(), // min 4 max 15
   AliquotaRitenuta: Joi.string().regex(/^\d{1,3}(\.\d{2,2})$/).required(),
   CausalePagamento: Joi.string().min(1).max(2).required()
 })
 
 const DatiBolloSchema = Joi.object().keys({
   BolloVirtuale: Joi.valid('SI').required(),
-  ImportoBollo: Joi.string().regex(/^\d{1,12}(\.\d{2,2})$/).required()
+  ImportoBollo: Joi.string().regex(/^\d{1,12}(\.\d{2,6})$/).required()
 })
 
 const DatiCassaPrevidenzialeItemSchema = Joi.object().keys({
   TipoCassa: Joi.valid(TipiCassaValidi).required(),
-  AlCassa: Joi.string().regex(/^\d{1,12}(\.\d{2,2})$/).required(),
-  ImportoContributoCassa: Joi.string().regex(/^\d{1,12}(\.\d{2,2})$/).required(),
-  ImponibileCassa: Joi.string().regex(/^\d{1,12}(\.\d{2,2})$/),
+  AlCassa: Joi.string().regex(/^\d{1,3}(\.\d{2,2})$/).required(),
+  ImportoContributoCassa: Joi.string().regex(/^\d{1,12}(\.\d{2,6})$/).required(),
+  ImponibileCassa: Joi.string().regex(/^\d{1,12}(\.\d{2,6})$/),
   AliquotaIVA: AliquotaIVASchema.required(),
   Ritenuta: Joi.valid('SI'),
   Natura: Joi.valid(NaturaValidi),
@@ -50,16 +50,16 @@ const DatiCassaPrevidenzialeSchema = Joi.alternatives().try(
 const ScontoMaggiorazioneItemSchema = Joi.object().keys({
   Tipo: Joi.valid('SC', 'MG').required(),
   Percentuale: Joi.string().regex(/^\d{1,3}(\.\d{2,2})$/),
-  Importo: Joi.string().regex(/^\d{1,12}(\.\d{2,2})$/)
+  Importo: Joi.string().regex(/^\d{1,12}(\.\d{2,6})$/)
 }).required()
 
 const ScontoMaggiorazioneSchema = Joi.alternatives().try(
   Joi.array().items(ScontoMaggiorazioneItemSchema),
   ScontoMaggiorazioneItemSchema)
 
-const ImportoTotaleDocumentoSchema = Joi.string().regex(/^\d{1,12}(\.\d{2,2})$/)
+const ImportoTotaleDocumentoSchema = Joi.string().regex(/^\d{1,12}(\.\d{2,6})$/)
 
-const ArrotondamentoSchema = Joi.string().regex(/^\d{1,12}(\.\d{2,2})$/)
+const ArrotondamentoSchema = Joi.string().regex(/^\d{1,12}(\.\d{2,6})$/)
 
 const CausaleItemSchema = Joi.string().min(1).max(200)
 
@@ -201,7 +201,7 @@ const DettaglioLineeItemSchema = Joi.object().keys({
   TipoCessionePrestazione: Joi.valid('SC', 'PR', 'AB', 'AC'), // 2.2.1.2
   CodiceArticolo: CodiceArticoloSchema, // 2.2.1.3
   Descrizione: Joi.string().min(1).max(1000).required(), // 2.2.1.4
-  Quantita: Joi.string().regex(/^\d{1,18}(\.\d{2,2})$/), // 2.2.1.5
+  Quantita: Joi.string().regex(/^\d{1,13}(\.\d{2,6})$/), // 2.2.1.5
   UnitaMisura: Joi.string().min(1).max(10), // 2.2.1.6
   DataInizioPeriodo: Joi.string().isoDate().raw(), // 2.2.1.7
   DataFinePeriodo: Joi.string().isoDate().raw(), // 2.2.1.8
@@ -222,8 +222,8 @@ const DettaglioLineeSchema = Joi.alternatives().try(
 const DatiRiepilogoItemSchema = Joi.object().keys({
   AliquotaIVA: AliquotaIVASchema.required(), // 2.2.2.1
   Natura: Joi.valid(NaturaValidi), // 2.2.2.2
-  SpeseAccessorie: Joi.string().regex(/^\d{1,12}(\.\d{2,2})$/), // 2.2.2.3
-  Arrotondamento: Joi.string().regex(/^\d{1,18}(\.\d{2,2})$/), // 2.2.2.4
+  SpeseAccessorie: Joi.string().regex(/^\d{1,12}(\.\d{2,6})$/), // 2.2.2.3
+  Arrotondamento: Joi.string().regex(/^\d{1,13}(\.\d{2,6})$/), // 2.2.2.4
   ImponibileImporto: PrezzoSchema.required(), // 2.2.2.5
   Imposta: PrezzoSchema.required(), // 2.2.2.6
   EsigibilitaIVA: Joi.valid('I', 'D', 'S'), // 2.2.2.7
@@ -250,7 +250,7 @@ const DettaglioPagamentoItemSchema = Joi.object().keys({
   DataRiferimentoTerminiPagamento: Joi.string().isoDate().raw(), // 2.4.2.3
   GiorniTerminiPagamento: Joi.number().integer().min(0).max(999), // 2.4.2.4 // 2.4.2.4
   DataScadenzaPagamento: Joi.string().isoDate().raw(), // 2.4.2.5
-  ImportoPagamento: Joi.string().regex(/^\d{1,12}(\.\d{2,2})$/).required(), // 2.4.2.6
+  ImportoPagamento: Joi.string().regex(/^\d{1,12}(\.\d{2,6})$/).required(), // 2.4.2.6
   CodUfficioPostale: Joi.string().min(1).max(20), // 2.4.2.7
   CognomeQuietanzante: Joi.string().min(1).max(60), // 2.4.2.8
   NomeQuietanzante: Joi.string().min(1).max(60), // 2.4.2.9
@@ -261,9 +261,9 @@ const DettaglioPagamentoItemSchema = Joi.object().keys({
   ABI: Joi.string().length(5), // 2.4.2.14
   CAB: Joi.string().length(5), // 2.4.2.15
   BIC: Joi.string().min(8).max(11), // 2.4.2.16
-  ScontoPagamentoAnticipato: Joi.string().regex(/^\d{1,12}(\.\d{2,2})$/), // 2.4.2.17
+  ScontoPagamentoAnticipato: Joi.string().regex(/^\d{1,12}(\.\d{2,6})$/), // 2.4.2.17
   DataLimitePagamentoAnticipato: Joi.string().isoDate().raw(), // 2.4.2.18
-  PenalitaPagamentiRitardati: Joi.string().regex(/^\d{1,12}(\.\d{2,2})$/), // 2.4.2.19
+  PenalitaPagamentiRitardati: Joi.string().regex(/^\d{1,12}(\.\d{2,6})$/), // 2.4.2.19
   DataDecorrenzaPenale: Joi.string().isoDate().raw(), // 2.4.2.20
   CodicePagamento: Joi.string().min(1).max(60) // 2.4.2.21
 }).required()
