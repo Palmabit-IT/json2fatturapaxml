@@ -97,6 +97,37 @@ const invoice = {
 
 Alcuni caratteri speciali possono essere sostituiti o rimossi dall'XML.
 
+**Caratteri ammessi**
+
+```
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+0123456789
+,;:-_*+!%
+\/()=?
+```
+
+**Caratteri sostituiti**
+
+```
+à -> a'
+è -> e'
+é -> e'
+ì -> i'
+ò -> o'
+ù -> u'
+€ -> Euro
+& -> e
+[ -> (
+] -> )
+{ -> (
+} -> )
+< -> spazio vuoto
+> -> spazio vuoto
+```
+
+Tutti gli altri caratteri non ammessi sono rimossi dall'XML.
+
 ### Error
 
 Il JSON in ingresso viene validato secondo questo [formato fattura].
