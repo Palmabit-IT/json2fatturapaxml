@@ -522,4 +522,78 @@ describe('json2fatturapaxml', () => {
     expect(result.error).toBeUndefined()
     expect(result).toEqual(expected)
   })
+
+  test('should generate xml for private customer (not company)', () => {
+    const invoice = {
+      FatturaElettronicaHeader: {
+        DatiTrasmissione: {
+          IdTrasmittente: {
+            IdPaese: 'IT',
+            IdCodice: '03469550986'
+          },
+          ProgressivoInvio: '001',
+          FormatoTrasmissione: 'FPR12',
+          CodiceDestinatario: '0000000',
+        },
+        CedentePrestatore: {
+          DatiAnagrafici: {
+            IdFiscaleIVA: {
+              IdPaese: 'IT',
+              IdCodice: '03469550986'
+            },
+            Anagrafica: {
+              Denominazione: 'dfa'
+            },
+            RegimeFiscale: 'RF19'
+          },
+          Sede: {
+            Indirizzo: 'Indirizzo',
+            CAP: '00000',
+            Comune: 'Comune',
+            Nazione: 'IT'
+          }
+        },
+        CessionarioCommittente: {
+          DatiAnagrafici: {
+            CodiceFiscale: 'AAABBB80A01A000A',
+            Anagrafica: {
+              Denominazione: 'Denominazione'
+            }
+          },
+          Sede: {
+            Indirizzo: 'Indirizzo',
+            CAP: '00000',
+            Comune: 'Comune',
+            Nazione: 'IT'
+          }
+        }
+      },
+      FatturaElettronicaBody: {
+        DatiGenerali: {
+          DatiGeneraliDocumento: {
+            TipoDocumento: 'TD01',
+            Divisa: 'EUR',
+            Data: '2018-11-19',
+            Numero: '1'
+          }
+        },
+        DatiBeniServizi: {
+          DettaglioLinee: {
+            NumeroLinea: 1,
+            Descrizione: 'Descrizione',
+            PrezzoUnitario: '0.00',
+            PrezzoTotale: '0.00',
+            AliquotaIVA: '22.00'
+          },
+          DatiRiepilogo: {
+            AliquotaIVA: '22.00',
+            ImponibileImporto: '0.00',
+            Imposta: '0.00'
+          }
+        }
+      }
+    }
+    const result = json2fatturapaxml(invoice)
+    expect(result.error).toBeUndefined()
+  })
 })

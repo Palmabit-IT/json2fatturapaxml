@@ -1,6 +1,6 @@
 {
   "name": "json2fatturapaxml",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "Crea una fattura elettronica partendo da un JSON",
   "main": "index.js",
   "scripts": {

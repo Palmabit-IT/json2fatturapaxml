@@ -126,7 +126,7 @@ const CessionarioCommittenteSchema = Joi.object().keys({
       Titolo: Joi.string().min(2).max(10),
       CodEORI: Joi.string().min(13).max(17)
     }).required()
-  }).required(),
+  }).or('IdFiscaleIVA', 'CodiceFiscale').required(),
   Sede: Joi.object().keys({
     Indirizzo: IndirizzoSchema.required(),
     NumeroCivico: NumeroCivicoSchema,
