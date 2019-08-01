@@ -11,10 +11,9 @@ const options = {
   spaces: 2
 }
 
-module.exports = (invoice = {}, options = {}) => {
-  const { returnXmlWithErrors = false } = options;
+module.exports = (invoice = {}) => {
   const result = validate(invoice)
-  if (result.error && !returnXmlWithErrors) return result
+  if (result.error) return result
 
   const sanitizedInvoice = sanitizeObject(invoice)
 
@@ -25,6 +24,6 @@ module.exports = (invoice = {}, options = {}) => {
       ...sanitizedInvoice
     }
   }
-	
-  return (!returnXmlWithErrors) ? convert.json2xml(json, options) : { error: result.error, xml: convert.json2xml(json, options) }
+
+  return convert.json2xml(json, options)
 }
