@@ -11,8 +11,8 @@ const options = {
   spaces: 2
 }
 
-module.exports = (invoice = {}, options = {}) => {
-  const { returnXmlWithErrors = false } = options;
+module.exports = (invoice = {}, opt = {}) => {
+  const { returnXmlWithErrors = false } = opt;
   const result = validate(invoice)
   if (result.error && !returnXmlWithErrors) return result
 
