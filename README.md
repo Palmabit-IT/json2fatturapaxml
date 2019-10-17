@@ -128,6 +128,18 @@ abcdefghijklmnopqrstuvwxyz
 
 Tutti gli altri caratteri non ammessi sono rimossi dall'XML.
 
+### Options
+
+La funzione `json2fatturapaxml` accetta un secondo parametro contenente le opzioni
+
+```javascript
+const options = {
+  returnXmlWithErrors: false  //default false
+}
+
+const { error, xml } = json2fatturapaxml(invoice, options)
+```
+
 ### Error
 
 Il JSON in ingresso viene validato secondo questo [formato fattura].
