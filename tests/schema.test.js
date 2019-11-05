@@ -1,70 +1,64 @@
-'use strict'
+"use strict";
 
-const Joi = require('joi')
-const schema = require('../src/schemas/FatturaElettronicaSchema')
+const Joi = require("joi");
+const schema = require("../src/schemas/FatturaElettronicaSchema");
 
-describe('Schema', () => {
-  describe('FatturaElettronicaHeader', () => {
-    test('should require FatturaElettronicaHeader', () => {
-      const value = {}
-      const result = Joi.validate(value, schema)
-      const {
-        error: {
-          details = []
-        } = {}
-      } = result || {}
-      expect(details.some(e => e.message === '"FatturaElettronicaHeader" is required')).toBeTruthy()
-    })
+describe("Schema", () => {
+  describe("FatturaElettronicaHeader", () => {
+    test("should require FatturaElettronicaHeader", () => {
+      const value = {};
+      const result = Joi.validate(value, schema);
+      const { error: { details = [] } = {} } = result || {};
+      expect(
+        details.some(
+          e => e.message === '"FatturaElettronicaHeader" is required'
+        )
+      ).toBeTruthy();
+    });
 
-    describe('DatiTrasmissione', () => {
-      test('should require DatiTrasmissione', () => {
+    describe("DatiTrasmissione", () => {
+      test("should require DatiTrasmissione", () => {
         const value = {
           FatturaElettronicaHeader: {}
-        }
-        const result = Joi.validate(value, schema)
-        const {
-          error: {
-            details = []
-          } = {}
-        } = result || {}
-        expect(details.some(e => e.message === '"DatiTrasmissione" is required')).toBeTruthy()
-      })
+        };
+        const result = Joi.validate(value, schema);
+        const { error: { details = [] } = {} } = result || {};
+        expect(
+          details.some(e => e.message === '"DatiTrasmissione" is required')
+        ).toBeTruthy();
+      });
 
-      describe('IdTrasmittente', () => {
-        test('should require IdTrasmittente', () => {
+      describe("IdTrasmittente", () => {
+        test("should require IdTrasmittente", () => {
           const value = {
             FatturaElettronicaHeader: {
               DatiTrasmissione: {}
             }
-          }
-          const result = Joi.validate(value, schema)
-          const {
-            error: {
-              details = []
-            } = {}
-          } = result || {}
-          expect(details.some(e => e.message === '"IdTrasmittente" is required')).toBeTruthy()
-        })
+          };
+          const result = Joi.validate(value, schema);
+          const { error: { details = [] } = {} } = result || {};
+          expect(
+            details.some(e => e.message === '"IdTrasmittente" is required')
+          ).toBeTruthy();
+        });
 
-        test('should require IdPaese', () => {
+        test("should require IdPaese", () => {
           const value = {
             FatturaElettronicaHeader: {
               DatiTrasmissione: {
                 IdTrasmittente: {}
               }
             }
-          }
-          const result = Joi.validate(value, schema, { abortEarly: false })
-          const {
-            error: {
-              details = []
-            } = {}
-          } = result || {}
+          };
+          const result = Joi.validate(value, schema, { abortEarly: false });
+          const { error: { details = [] } = {} } = result || {};
           // console.log('details', details)
-          expect(details.some(e => e.message === '"IdPaese" is required')).toBeTruthy()
-        })
+          expect(
+            details.some(e => e.message === '"IdPaese" is required')
+          ).toBeTruthy();
+        });
 
-        test('IdPaese should be a string', () => {
+        test("IdPaese should be a string", () => {
           const value = {
             FatturaElettronicaHeader: {
               DatiTrasmissione: {
@@ -73,95 +67,89 @@ describe('Schema', () => {
                 }
               }
             }
-          }
-          const result = Joi.validate(value, schema)
-          const {
-            error: {
-              details = []
-            } = {}
-          } = result || {}
-          expect(details.some(e => e.message === '"IdPaese" must be a string')).toBeTruthy()
-        })
+          };
+          const result = Joi.validate(value, schema);
+          const { error: { details = [] } = {} } = result || {};
+          expect(
+            details.some(e => e.message === '"IdPaese" must be a string')
+          ).toBeTruthy();
+        });
 
         test('"IdPaese" needs to be a valid ISO 3166-1 alpha-2 country code', () => {
           const value = {
             FatturaElettronicaHeader: {
               DatiTrasmissione: {
                 IdTrasmittente: {
-                  IdPaese: 'ITT'
+                  IdPaese: "ITT"
                 }
               }
             }
-          }
-          const result = Joi.validate(value, schema)
-          const {
-            error: {
-              details = []
-            } = {}
-          } = result || {}
-          expect(details.some(e => e.message === '"IdPaese" needs to be a valid ISO 3166-1 alpha-2 country code')).toBeTruthy()
-        })
+          };
+          const result = Joi.validate(value, schema);
+          const { error: { details = [] } = {} } = result || {};
+          expect(
+            details.some(
+              e =>
+                e.message ===
+                '"IdPaese" needs to be a valid ISO 3166-1 alpha-2 country code'
+            )
+          ).toBeTruthy();
+        });
 
-        test('should require idCodice', () => {
+        test("should require idCodice", () => {
           const value = {
             FatturaElettronicaHeader: {
               DatiTrasmissione: {
                 IdTrasmittente: {
-                  IdPaese: 'IT'
+                  IdPaese: "IT"
                 }
               }
             }
-          }
-          const result = Joi.validate(value, schema)
-          const {
-            error: {
-              details = []
-            } = {}
-          } = result || {}
-          expect(details.some(e => e.message === '"IdCodice" is required')).toBeTruthy()
-        })
+          };
+          const result = Joi.validate(value, schema);
+          const { error: { details = [] } = {} } = result || {};
+          expect(
+            details.some(e => e.message === '"IdCodice" is required')
+          ).toBeTruthy();
+        });
 
-        test('IdCodice should be a string', () => {
+        test("IdCodice should be a string", () => {
           const value = {
             FatturaElettronicaHeader: {
               DatiTrasmissione: {
                 IdTrasmittente: {
-                  IdPaese: 'IT',
+                  IdPaese: "IT",
                   IdCodice: 1
                 }
               }
             }
-          }
-          const result = Joi.validate(value, schema)
-          const {
-            error: {
-              details = []
-            } = {}
-          } = result || {}
-          expect(details.some(e => e.message === '"IdCodice" must be a string')).toBeTruthy()
-        })
+          };
+          const result = Joi.validate(value, schema);
+          const { error: { details = [] } = {} } = result || {};
+          expect(
+            details.some(e => e.message === '"IdCodice" must be a string')
+          ).toBeTruthy();
+        });
 
         test('"IdCodice" length must be 2 characters long', () => {
           const value = {
             FatturaElettronicaHeader: {
               DatiTrasmissione: {
                 IdTrasmittente: {
-                  IdPaese: 'IT',
-                  IdCodice: 'abcdefghilmnoprstuvzabcdefghi'
+                  IdPaese: "IT",
+                  IdCodice: "abcdefghilmnoprstuvzabcdefghi8"
                 }
               }
             }
-          }
-          const result = Joi.validate(value, schema)
-          const {
-            error: {
-              details = []
-            } = {}
-          } = result || {}
-          const expectedMessage = '"IdCodice" length must be less than or equal to 28 characters long'
-          expect(details.some(e => e.message === expectedMessage)).toBeTruthy()
-        })
-      })
+          };
+          const result = Joi.validate(value, schema);
+          const { error: { details = [] } = {} } = result || {};
+
+          const expectedMessage =
+            '"IdCodice" length must be less than or equal to 28 characters long';
+          expect(details.some(e => e.message === expectedMessage)).toBeTruthy();
+        });
+      });
       /*
       describe('PECDestinatario is required when CodiceDestinatario == 0000000', () => {
         const value = {
@@ -181,6 +169,6 @@ describe('Schema', () => {
         console.log('result', result)
       })
        */
-    })
-  })
-})
+    });
+  });
+});
