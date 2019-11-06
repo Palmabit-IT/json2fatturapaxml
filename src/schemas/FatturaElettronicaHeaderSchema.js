@@ -1,63 +1,63 @@
-"use strict";
+'use strict'
 
-const BaseJoi = require("joi");
-const JoiCountryExtension = require("joi-country-extension");
-const Joi = BaseJoi.extend(JoiCountryExtension);
+const BaseJoi = require('joi')
+const JoiCountryExtension = require('joi-country-extension')
+const Joi = BaseJoi.extend(JoiCountryExtension)
 
 const RegimiFiscaliValidi = [
-  "RF01",
-  "RF02",
-  "RF04",
-  "RF05",
-  "RF06",
-  "RF07",
-  "RF08",
-  "RF09",
-  "RF10",
-  "RF11",
-  "RF12",
-  "RF13",
-  "RF14",
-  "RF15",
-  "RF16",
-  "RF17",
-  "RF18",
-  "RF19"
-];
+  'RF01',
+  'RF02',
+  'RF04',
+  'RF05',
+  'RF06',
+  'RF07',
+  'RF08',
+  'RF09',
+  'RF10',
+  'RF11',
+  'RF12',
+  'RF13',
+  'RF14',
+  'RF15',
+  'RF16',
+  'RF17',
+  'RF18',
+  'RF19'
+]
 
-const IdPaeseSchema = Joi.string().country();
+const IdPaeseSchema = Joi.string().country()
 const IdCodiceSchema = Joi.string()
   .alphanum()
   .min(2)
-  .max(28);
+  .max(28)
 const EmailSchema = Joi.string()
   .email()
   .min(2)
-  .max(256);
+  .max(256)
 const RiferimentoAmministrazioneSchema = Joi.string()
   .min(1)
-  .max(20);
+  .max(20)
 const IdFiscaleIVASchema = Joi.object().keys({
   IdPaese: IdPaeseSchema.required(),
   IdCodice: IdCodiceSchema.required()
-});
+})
 const CodiceFiscaleSchema = Joi.string()
   .alphanum()
   .min(11)
-  .max(16);
+  .max(16)
 const IndirizzoSchema = Joi.string()
   .min(1)
-  .max(60);
+  .max(60)
 const NumeroCivicoSchema = Joi.string()
   .min(1)
-  .max(8);
+  .max(8)
 
 const ContattiTrasmittenteSchema = Joi.object().keys({
   Telefono: Joi.string()
     .min(5)
     .max(12), // 1.1.5.1
   Email: EmailSchema // 1.1.5.2
-});
+})
 
 const DatiTrasmissioneSchema = Joi.object()
   .keys({
@@ -76,10 +76,10 @@ const DatiTrasmissioneSchema = Joi.object()
       .required()
       .min(1)
       .max(10),
-    FormatoTrasmissione: Joi.valid("FPA12", "FPR12").required(),
+    FormatoTrasmissione: Joi.valid('FPA12', 'FPR12').required(),
     CodiceDestinatario: Joi.alternatives()
-      .when("FormatoTrasmissione", {
-        is: "FPA12",
+      .when('FormatoTrasmissione', {
+        is: 'FPA12',
         then: Joi.string()
           .alphanum()
           .length(6),
@@ -89,14 +89,14 @@ const DatiTrasmissioneSchema = Joi.object()
       })
       .required(),
     ContattiTrasmittente: ContattiTrasmittenteSchema, // 1.1.5
-    PECDestinatario: Joi.alternatives().when("CodiceDestinatario", {
+    PECDestinatario: Joi.alternatives().when('CodiceDestinatario', {
       // FIXME
-      is: "0000000",
+      is: '0000000',
       then: EmailSchema.required(),
       otherwise: Joi.forbidden()
     })
   })
-  .required();
+  .required()
 
 const DatiAnagraficiCedentePrestatoreSchema = Joi.object()
   .keys({
@@ -131,10 +131,10 @@ const DatiAnagraficiCedentePrestatoreSchema = Joi.object()
     DataIscrizioneAlbo: Joi.string()
       .isoDate()
       .raw()
-      .notes("YYYY-MM-DD"), // 1.2.1.7
+      .notes('YYYY-MM-DD'), // 1.2.1.7
     RegimeFiscale: Joi.valid(RegimiFiscaliValidi).required() // 1.2.1.8
   })
-  .required();
+  .required()
 
 const SedeCedentePrestatoreSchema = Joi.object()
   .keys({
@@ -152,8 +152,8 @@ const SedeCedentePrestatoreSchema = Joi.object()
     Nazione: Joi.string()
       .uppercase()
       .length(2),
-    Provincia: Joi.string().when("Nazione", {
-      is: "IT",
+    Provincia: Joi.string().when('Nazione', {
+      is: 'IT',
       then: Joi.string()
         .uppercase()
         .length(2)
@@ -162,12 +162,12 @@ const SedeCedentePrestatoreSchema = Joi.object()
         .uppercase()
         .length(2)
         .optional()
-        .allow("")
+        .allow('')
     })
     // Provincia: Joi.string().uppercase().length(2),
     // Nazione: Joi.string().uppercase().length(2).required()
   })
-  .required();
+  .required()
 
 const StabileOrganizzazioneSchema = Joi.object().keys({
   Indirizzo: IndirizzoSchema.required(), // 1.2.3.1
@@ -186,7 +186,7 @@ const StabileOrganizzazioneSchema = Joi.object().keys({
     .uppercase()
     .length(2)
     .required() // 1.2.3.6
-});
+})
 
 const IscrizioneREASchema = Joi.object().keys({
   Ufficio: Joi.string()
@@ -201,9 +201,9 @@ const IscrizioneREASchema = Joi.object().keys({
   CapitaleSociale: Joi.number()
     .precision(2)
     .positive(), // 1.2.4.3
-  SocioUnico: Joi.valid("SU", "SM"), // 1.2.4.4
-  StatoLiquidazione: Joi.valid("LS", "LN").required() // 1.2.4.5
-});
+  SocioUnico: Joi.valid('SU', 'SM'), // 1.2.4.4
+  StatoLiquidazione: Joi.valid('LS', 'LN').required() // 1.2.4.5
+})
 
 const ContattiCedentePrestatoreSchema = Joi.object().keys({
   Telefono: Joi.string()
@@ -213,7 +213,7 @@ const ContattiCedentePrestatoreSchema = Joi.object().keys({
     .min(5)
     .max(12), // 1.2.5.2
   Email: EmailSchema // 1.2.5.3
-});
+})
 
 const CedentePrestatoreSchema = Joi.object()
   .keys({
@@ -224,7 +224,7 @@ const CedentePrestatoreSchema = Joi.object()
     Contatti: ContattiCedentePrestatoreSchema, // 1.2.5
     RiferimentoAmministrazione: RiferimentoAmministrazioneSchema // 1.2.6
   })
-  .required();
+  .required()
 
 const RappresentanteFiscaleSchema = Joi.object().keys({
   DatiAnagrafici: Joi.object()
@@ -252,7 +252,7 @@ const RappresentanteFiscaleSchema = Joi.object().keys({
         .required()
     })
     .required() // 1.3.1
-});
+})
 
 const CessionarioCommittenteSchema = Joi.object()
   .keys({
@@ -280,7 +280,7 @@ const CessionarioCommittenteSchema = Joi.object()
           })
           .required()
       })
-      .or("IdFiscaleIVA", "CodiceFiscale")
+      .or('IdFiscaleIVA', 'CodiceFiscale')
       .required(),
     Sede: Joi.object()
       .keys({
@@ -316,7 +316,7 @@ const CessionarioCommittenteSchema = Joi.object()
         .max(60)
     })
   })
-  .required();
+  .required()
 
 const TerzoIntermediarioOSoggettoEmittenteSchema = Joi.object().keys({
   DatiAnagrafici: Joi.object()
@@ -344,9 +344,9 @@ const TerzoIntermediarioOSoggettoEmittenteSchema = Joi.object().keys({
         .required()
     })
     .required()
-});
+})
 
-const SoggettoEmittenteSchema = Joi.valid("CC", "TZ");
+const SoggettoEmittenteSchema = Joi.valid('CC', 'TZ')
 
 const FatturaElettronicaHeaderSchema = Joi.object()
   .keys({
@@ -357,6 +357,6 @@ const FatturaElettronicaHeaderSchema = Joi.object()
     TerzoIntermediarioOSoggettoEmittente: TerzoIntermediarioOSoggettoEmittenteSchema, // 1.5
     SoggettoEmittente: SoggettoEmittenteSchema // 1.6
   })
-  .required();
+  .required()
 
-module.exports = FatturaElettronicaHeaderSchema;
+module.exports = FatturaElettronicaHeaderSchema
