@@ -80,11 +80,9 @@ describe('json2fatturapaxml', () => {
         }
       }
     }
-
     const expected = fs.readFileSync('tests/xml/IT03469550986_PR001.xml', {
       encoding: 'UTF-8'
     })
-
     const result = json2fatturapaxml(invoice)
     expect(result.error).toBeUndefined()
     expect(result).toEqual(expected)

@@ -135,6 +135,7 @@ La funzione `json2fatturapaxml` accetta un secondo parametro contenente le opzio
 ```javascript
 const options = {
   returnXmlWithErrors: false  //default false
+  language: "EN" // default "EN". Attualmente le lingue supportate sono: "IT", "EN".
 }
 
 const { error, xml } = json2fatturapaxml(invoice, options)
@@ -157,6 +158,8 @@ npm test
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+
+Per aggiungere/modificare le lingue segui questa guida: [TRANSLATIONS.md](TRANSLATIONS.md)
 
 ## Versioning
 

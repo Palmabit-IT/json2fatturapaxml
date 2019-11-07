@@ -138,7 +138,7 @@ describe.only('Schema', () => {
               DatiTrasmissione: {
                 IdTrasmittente: {
                   IdPaese: 'IT',
-                  IdCodice: 'abcdefghilmnoprstuvzabcdefghi'
+                  IdCodice: 'abcdefghilmnoprstuvzabcdefghi8'
                 }
               }
             }
