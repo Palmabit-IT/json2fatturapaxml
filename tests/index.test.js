@@ -32,6 +32,7 @@ describe('json2fatturapaxml', () => {
             Indirizzo: 'Indirizzo',
             CAP: '00000',
             Comune: 'Comune',
+            Provincia: 'MN',
             Nazione: 'IT'
           }
         },
@@ -49,6 +50,7 @@ describe('json2fatturapaxml', () => {
             Indirizzo: 'Indirizzo',
             CAP: '00000',
             Comune: 'Comune',
+            Provincia: 'MN',
             Nazione: 'IT'
           }
         }
@@ -113,6 +115,7 @@ describe('json2fatturapaxml', () => {
             Indirizzo: 'Indirizzo',
             CAP: '00000',
             Comune: 'Comune',
+            Provincia: 'BS',
             Nazione: 'IT'
           }
         },
@@ -130,6 +133,7 @@ describe('json2fatturapaxml', () => {
             Indirizzo: 'Indirizzo',
             CAP: '00000',
             Comune: 'Comune',
+            Provincia: 'CR',
             Nazione: 'IT'
           }
         }
@@ -556,6 +560,7 @@ describe('json2fatturapaxml', () => {
             Indirizzo: 'Indirizzo',
             CAP: '00000',
             Comune: 'Comune',
+            Provincia: 'MN',
             Nazione: 'IT'
           }
         },
@@ -570,6 +575,7 @@ describe('json2fatturapaxml', () => {
             Indirizzo: 'Indirizzo',
             CAP: '00000',
             Comune: 'Comune',
+            Provincia: 'MN',
             Nazione: 'IT'
           }
         }

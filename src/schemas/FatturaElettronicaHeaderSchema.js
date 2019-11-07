@@ -149,13 +149,24 @@ const SedeCedentePrestatoreSchema = Joi.object()
       .min(1)
       .max(60)
       .required(),
-    Provincia: Joi.string()
-      .uppercase()
-      .length(2),
     Nazione: Joi.string()
       .uppercase()
       .length(2)
-      .required()
+      .required(),
+    Provincia: Joi.string().when('Nazione', {
+      is: 'IT',
+      then: Joi.string()
+        .uppercase()
+        .length(2)
+        .required(),
+      otherwise: Joi.string()
+        .uppercase()
+        .length(2)
+        .optional()
+        .allow('')
+    })
+    // Provincia: Joi.string().uppercase().length(2),
+    // Nazione: Joi.string().uppercase().length(2).required()
   })
   .required()
 

@@ -26,6 +26,7 @@
         <Indirizzo>Indirizzo</Indirizzo>
         <CAP>00000</CAP>
         <Comune>Comune</Comune>
+        <Provincia>MN</Provincia>
         <Nazione>IT</Nazione>
       </Sede>
     </CedentePrestatore>
@@ -43,6 +44,7 @@
         <Indirizzo>Indirizzo</Indirizzo>
         <CAP>00000</CAP>
         <Comune>Comune</Comune>
+        <Provincia>MN</Provincia>
         <Nazione>IT</Nazione>
       </Sede>
     </CessionarioCommittente>
