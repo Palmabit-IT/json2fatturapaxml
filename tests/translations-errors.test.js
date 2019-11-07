@@ -81,7 +81,7 @@ describe('Translation errors', () => {
     const result = json2xml(value, { language: 'IT' })
 
     const expectedMessage =
-      '"IdCodice" la lunghezza della string non deve superare 28 caratteri.'
+      '"IdCodice" la lunghezza della string non deve superare i 28 caratteri.'
     expect(
       result.error.details.some(err => err.message === expectedMessage)
     ).toBeTruthy()
