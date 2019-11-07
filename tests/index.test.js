@@ -32,6 +32,7 @@ describe('json2fatturapaxml', () => {
             Indirizzo: 'Indirizzo',
             CAP: '00000',
             Comune: 'Comune',
+            Provincia: 'MN',
             Nazione: 'IT'
           }
         },
@@ -49,6 +50,7 @@ describe('json2fatturapaxml', () => {
             Indirizzo: 'Indirizzo',
             CAP: '00000',
             Comune: 'Comune',
+            Provincia: 'MN',
             Nazione: 'IT'
           }
         }
@@ -78,7 +80,11 @@ describe('json2fatturapaxml', () => {
         }
       }
     }
-    const expected = fs.readFileSync('tests/xml/IT03469550986_PR001.xml', { encoding: 'UTF-8' })
+
+    const expected = fs.readFileSync('tests/xml/IT03469550986_PR001.xml', {
+      encoding: 'UTF-8'
+    })
+
     const result = json2fatturapaxml(invoice)
     expect(result.error).toBeUndefined()
     expect(result).toEqual(expected)
@@ -111,6 +117,7 @@ describe('json2fatturapaxml', () => {
             Indirizzo: 'Indirizzo',
             CAP: '00000',
             Comune: 'Comune',
+            Provincia: 'BS',
             Nazione: 'IT'
           }
         },
@@ -128,6 +135,7 @@ describe('json2fatturapaxml', () => {
             Indirizzo: 'Indirizzo',
             CAP: '00000',
             Comune: 'Comune',
+            Provincia: 'CR',
             Nazione: 'IT'
           }
         }
@@ -157,7 +165,9 @@ describe('json2fatturapaxml', () => {
         }
       }
     }
-    const expected = fs.readFileSync('tests/xml/IT03469550986_PA001.xml', { encoding: 'UTF-8' })
+    const expected = fs.readFileSync('tests/xml/IT03469550986_PA001.xml', {
+      encoding: 'UTF-8'
+    })
     const result = json2fatturapaxml(invoice)
     expect(result.error).toBeUndefined()
     expect(result).toEqual(expected)
@@ -429,7 +439,7 @@ describe('json2fatturapaxml', () => {
               Provincia: 'BS',
               Nazione: 'IT'
             },
-            DataOraConsegna: '2018-11-20T15:19:00',
+            DataOraConsegna: '2018-11-20T15:19:00'
           },
           FatturaPrincipale: {
             NumeroFatturaPrincipale: 'dfa',
@@ -518,7 +528,9 @@ describe('json2fatturapaxml', () => {
       }
     }
     const result = json2fatturapaxml(invoice)
-    const expected = fs.readFileSync('tests/xml/IT03469550986_PR002.xml', { encoding: 'UTF-8' })
+    const expected = fs.readFileSync('tests/xml/IT03469550986_PR002.xml', {
+      encoding: 'UTF-8'
+    })
     expect(result.error).toBeUndefined()
     expect(result).toEqual(expected)
   })
@@ -533,7 +545,7 @@ describe('json2fatturapaxml', () => {
           },
           ProgressivoInvio: '001',
           FormatoTrasmissione: 'FPR12',
-          CodiceDestinatario: '0000000',
+          CodiceDestinatario: '0000000'
         },
         CedentePrestatore: {
           DatiAnagrafici: {
@@ -550,6 +562,7 @@ describe('json2fatturapaxml', () => {
             Indirizzo: 'Indirizzo',
             CAP: '00000',
             Comune: 'Comune',
+            Provincia: 'MN',
             Nazione: 'IT'
           }
         },
@@ -564,6 +577,7 @@ describe('json2fatturapaxml', () => {
             Indirizzo: 'Indirizzo',
             CAP: '00000',
             Comune: 'Comune',
+            Provincia: 'MN',
             Nazione: 'IT'
           }
         }

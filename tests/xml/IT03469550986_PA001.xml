@@ -25,6 +25,7 @@
         <Indirizzo>Indirizzo</Indirizzo>
         <CAP>00000</CAP>
         <Comune>Comune</Comune>
+        <Provincia>BS</Provincia>
         <Nazione>IT</Nazione>
       </Sede>
     </CedentePrestatore>
@@ -42,6 +43,7 @@
         <Indirizzo>Indirizzo</Indirizzo>
         <CAP>00000</CAP>
         <Comune>Comune</Comune>
+        <Provincia>CR</Provincia>
         <Nazione>IT</Nazione>
       </Sede>
     </CessionarioCommittente>
