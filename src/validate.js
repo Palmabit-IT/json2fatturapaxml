@@ -1,12 +1,12 @@
-"use strict";
+'use strict';
 
-const IT_lang = require("./joi-error-translations/IT");
-const Joi = require("joi");
-const schema = require("./schemas/FatturaElettronicaSchema");
+const Joi = require('joi');
+const IT_lang = require('./joi-error-translations/IT');
+const schema = require('./schemas/FatturaElettronicaSchema');
 
-const loadLanguage = (language = "") => {
+const loadLanguage = (language = '') => {
   switch (language.toUpperCase()) {
-    case "IT":
+    case 'IT':
       return IT_lang;
     default:
       return {};

@@ -8,7 +8,7 @@ module.exports = {
   string: {
     base: 'deve essere una stringa.',
     min: 'la lunghezza deve essere di almeno {{limit}} caratteri.',
-    max: 'la lunghezza della string non deve superare 28 caratteri.',
+    max: 'la lunghezza della string non deve superare i {{limit}} caratteri.',
     length: 'la lunghezza deve essere lunga {{limit}} caratteri.',
     alphanum: "puo' contenere solo caratteri alfanumerici.",
     email: 'deve essere un email valida.',
