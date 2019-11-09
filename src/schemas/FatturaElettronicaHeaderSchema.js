@@ -158,15 +158,14 @@ const SedeCedentePrestatoreSchema = Joi.object()
       then: Joi.string()
         .uppercase()
         .length(2)
-        .required(),
+        .optional()
+        .allow(''),
       otherwise: Joi.string()
         .uppercase()
         .length(2)
         .optional()
         .allow('')
     })
-    // Provincia: Joi.string().uppercase().length(2),
-    // Nazione: Joi.string().uppercase().length(2).required()
   })
   .required()
 
