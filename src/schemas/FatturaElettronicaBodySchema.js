@@ -11,7 +11,19 @@ const TipiDocumentiValidi = [
   'TD03',
   'TD04',
   'TD05',
-  'TD06'
+  'TD06',
+  'TD16',
+  'TD17',
+  'TD18',
+  'TD19',
+  'TD20',
+  'TD21',
+  'TD22',
+  'TD23',
+  'TD24',
+  'TD25',
+  'TD26',
+  'TD27',
 ]
 const TipiRitenuteValide = ['RT01', 'RT02']
 const TipiCassaValidi = [
@@ -38,7 +50,32 @@ const TipiCassaValidi = [
   'TC21',
   'TC22'
 ]
-const NaturaValidi = ['N1', 'N2', 'N3', 'N4', 'N5', 'N6', 'N7']
+const NaturaValidi = [
+  'N1',
+  'N2',
+  'N2.1',
+  'N2.2',
+  'N3',
+  'N3.1',
+  'N3.2',
+  'N3.3',
+  'N3.4',
+  'N3.5',
+  'N3.6',
+  'N4',
+  'N5',
+  'N6',
+  'N6.1',
+  'N6.2',
+  'N6.3',
+  'N6.4',
+  'N6.5',
+  'N6.6',
+  'N6.7',
+  'N6.8',
+  'N6.9',
+  'N7',
+]
 const ModalitaPagamentoValidi = [
   'MP01',
   'MP02',
@@ -61,7 +98,8 @@ const ModalitaPagamentoValidi = [
   'MP19',
   'MP20',
   'MP21',
-  'MP22'
+  'MP22',
+  'MP23',
 ]
 
 const IdPaeseSchema = Joi.string().country()
