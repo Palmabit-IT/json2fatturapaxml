@@ -25,7 +25,14 @@ const TipiDocumentiValidi = [
   'TD26',
   'TD27',
 ]
-const TipiRitenuteValide = ['RT01', 'RT02']
+const TipiRitenuteValide = [
+  'RT01',
+  'RT02',
+  'RT03',
+  'RT04',
+  'RT05',
+  'RT06',
+]
 const TipiCassaValidi = [
   'TC01',
   'TC02',
