@@ -24,6 +24,7 @@ const TipiDocumentiValidi = [
   'TD25',
   'TD26',
   'TD27',
+  'TD28',
 ]
 const TipiRitenuteValide = [
   'RT01',
