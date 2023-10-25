@@ -320,12 +320,12 @@ describe('json2fatturapaxml', () => {
             Divisa: 'EUR',
             Data: '2018-11-19',
             Numero: '1',
-            DatiRitenuta: {
+            DatiRitenuta: [{
               TipoRitenuta: 'RT01',
               ImportoRitenuta: '0.00',
               AliquotaRitenuta: '22.00',
               CausalePagamento: 'CP'
-            },
+            }],
             DatiBollo: {
               BolloVirtuale: 'SI',
               ImportoBollo: '0.00'

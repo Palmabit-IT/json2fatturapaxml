@@ -126,7 +126,7 @@ const CodiceFiscaleSchema = Joi.string()
 const PrezzoSchema = Joi.string().regex(/^[-]?\d{1,13}(\.\d{2,6})$/)
 const AliquotaIVASchema = Joi.string().regex(/^\d{1,3}(\.\d{2,2})$/)
 
-const DatiRitenutaSchema = Joi.object().keys({
+const DatiRitenutaSchema = Joi.array().items(Joi.object().keys({
   TipoRitenuta: Joi.valid(TipiRitenuteValide).required(),
   ImportoRitenuta: Joi.string()
     .regex(/^[-]?\d{1,12}(\.\d{2,6})$/)
@@ -138,7 +138,7 @@ const DatiRitenutaSchema = Joi.object().keys({
     .min(1)
     .max(2)
     .required()
-})
+}))
 
 const DatiBolloSchema = Joi.object().keys({
   BolloVirtuale: Joi.valid('SI').required(),
