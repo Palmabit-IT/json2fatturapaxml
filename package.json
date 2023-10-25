@@ -1,6 +1,6 @@
 {
   "name": "@palmabit/json2fatturapaxml",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Crea una fattura elettronica partendo da un JSON",
   "main": "index.js",
   "scripts": {
