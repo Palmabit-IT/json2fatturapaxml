@@ -22,7 +22,8 @@ const RegimiFiscaliValidi = [
   'RF16',
   'RF17',
   'RF18',
-  'RF19'
+  'RF19',
+  'RF20',
 ]
 
 const IdPaeseSchema = Joi.string().country()
