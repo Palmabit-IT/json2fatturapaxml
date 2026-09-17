@@ -3,8 +3,76 @@
 const Joi = require('joi')
 const schema = require('../src/schemas/FatturaElettronicaSchema')
 const schemaHeader = require('../src/schemas/FatturaElettronicaHeaderSchema')
+const schemaBody = require('../src/schemas/FatturaElettronicaBodySchema')
 
 describe.only('Schema', () => {
+  describe('FatturaElettronicaBody', () => {
+    describe('DatiTrasporto', () => {
+      const body = datiTrasporto => ({
+        DatiGenerali: {
+          DatiGeneraliDocumento: {
+            TipoDocumento: 'TD01',
+            Divisa: 'EUR',
+            Data: '2018-11-20',
+            Numero: '1'
+          },
+          DatiTrasporto: datiTrasporto
+        },
+        DatiBeniServizi: {
+          DettaglioLinee: {
+            NumeroLinea: 1,
+            Descrizione: 'Descrizione',
+            PrezzoUnitario: '0.00',
+            PrezzoTotale: '0.00',
+            AliquotaIVA: '22.00'
+          },
+          DatiRiepilogo: {
+            AliquotaIVA: '22.00',
+            ImponibileImporto: '0.00',
+            Imposta: '0.00'
+          }
+        }
+      })
+
+      test('should accept non alphanumeric characters in Anagrafica of DatiAnagraficiVettore', () => {
+        const value = body({
+          DatiAnagraficiVettore: {
+            IdFiscaleIVA: {
+              IdPaese: 'IT',
+              IdCodice: '03469550986'
+            },
+            Anagrafica: {
+              Denominazione: 'Trasporti Veloci S.r.l.',
+              Nome: 'Jean-Luc',
+              Cognome: "D'Angelo"
+            }
+          }
+        })
+
+        const result = Joi.validate(value, schemaBody)
+
+        expect(result.error).toBeNull()
+      })
+
+      test('should accept non alphanumeric characters in IndirizzoResa', () => {
+        const value = body({
+          IndirizzoResa: {
+            Indirizzo: 'Via Roma, 12',
+            NumeroCivico: '12/A',
+            CAP: '00000',
+            Comune: 'Brescia',
+            Provincia: 'BS',
+            Nazione: 'IT'
+          }
+        })
+
+        const result = Joi.validate(value, schemaBody)
+
+        expect(result.error).toBeNull()
+      })
+    })
+  })
+
   describe('FatturaElettronicaHeader', () => {
     test('should require FatturaElettronicaHeader', () => {
       const value = {}

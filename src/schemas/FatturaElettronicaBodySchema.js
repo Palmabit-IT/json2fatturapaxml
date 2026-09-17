@@ -304,15 +304,12 @@ const DatiAnagraficiVettoreSchema = Joi.object().keys({
   Anagrafica: Joi.object()
     .keys({
       Denominazione: Joi.string()
-        .alphanum()
         .min(1)
         .max(80),
       Nome: Joi.string()
-        .alphanum()
         .min(1)
         .max(60),
       Cognome: Joi.string()
-        .alphanum()
         .min(1)
         .max(60),
       Titolo: Joi.string()
@@ -330,12 +327,10 @@ const DatiAnagraficiVettoreSchema = Joi.object().keys({
 
 const IndirizzoResaSchema = Joi.object().keys({
   Indirizzo: Joi.string()
-    .alphanum()
     .min(1)
     .max(60)
     .required(),
   NumeroCivico: Joi.string()
-    .alphanum()
     .min(1)
     .max(8),
   CAP: Joi.string()
