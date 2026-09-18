@@ -61,10 +61,8 @@ const TipiCassaValidi = [
 ]
 const NaturaValidi = [
   'N1',
-  'N2',
   'N2.1',
   'N2.2',
-  'N3',
   'N3.1',
   'N3.2',
   'N3.3',
@@ -73,7 +71,6 @@ const NaturaValidi = [
   'N3.6',
   'N4',
   'N5',
-  'N6',
   'N6.1',
   'N6.2',
   'N6.3',

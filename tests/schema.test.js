@@ -71,6 +71,53 @@ describe.only('Schema', () => {
         expect(result.error).toBeNull()
       })
     })
+
+    describe('Natura', () => {
+      const body = ({ lineaNatura, riepilogoNatura }) => ({
+        DatiGenerali: {
+          DatiGeneraliDocumento: {
+            TipoDocumento: 'TD01',
+            Divisa: 'EUR',
+            Data: '2026-09-18',
+            Numero: '1'
+          }
+        },
+        DatiBeniServizi: {
+          DettaglioLinee: {
+            NumeroLinea: 1,
+            Descrizione: 'Descrizione',
+            PrezzoUnitario: '0.00',
+            PrezzoTotale: '0.00',
+            AliquotaIVA: '0.00',
+            Natura: lineaNatura
+          },
+          DatiRiepilogo: {
+            AliquotaIVA: '0.00',
+            Natura: riepilogoNatura,
+            ImponibileImporto: '0.00',
+            Imposta: '0.00'
+          }
+        }
+      })
+
+      test.each(['N2', 'N3', 'N6'])('should reject the generic code %s in DettaglioLinee', natura => {
+        const result = Joi.validate(body({ lineaNatura: natura, riepilogoNatura: 'N3.2' }), schemaBody)
+
+        expect(result.error).not.toBeNull()
+      })
+
+      test.each(['N2', 'N3', 'N6'])('should reject the generic code %s in DatiRiepilogo', natura => {
+        const result = Joi.validate(body({ lineaNatura: 'N3.2', riepilogoNatura: natura }), schemaBody)
+
+        expect(result.error).not.toBeNull()
+      })
+
+      test.each(['N1', 'N2.1', 'N3.2', 'N4', 'N6.8', 'N7'])('should accept the code %s', natura => {
+        const result = Joi.validate(body({ lineaNatura: natura, riepilogoNatura: natura }), schemaBody)
+
+        expect(result.error).toBeNull()
+      })
+    })
   })
 
   describe('FatturaElettronicaHeader', () => {
